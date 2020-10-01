@@ -13,11 +13,17 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.jfrog.artifactory" version '4.15.1'
+}
+
 apply plugin: "java"
 apply plugin: "java-library"
 apply plugin: "com.google.protobuf"
 apply plugin: "com.exactpro.th2.service-generator"
 apply plugin: "maven-publish"
+
+group = 'com.exactpro.th2'
 
 sourceCompatibility = 11
 targetCompatibility = 11
@@ -44,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    api platform('com.exactpro.th2:th2-bom:1.0.4')
+    api platform('com.exactpro.th2:th2-bom:2.0.+')
 
     compile "com.google.protobuf:protobuf-java-util:${protobufVersion}"
     compile "io.grpc:grpc-protobuf:${grpcVersion}"
@@ -100,17 +106,33 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-
-            groupId = 'com.exactpro'
-            artifactId = 'grpc-generator'
-            version = '1.0'
-
         }
     }
     repositories {
         maven {
             name = "localRepo"
             url = sharedDir
+        }
+    }
+}
+
+artifactory {
+    publish {
+        contextUrl = "${artifactory_url}"
+        repository {
+            repoKey = "${artifactory_deploy_repo_key}" // The Artifactory repository key to publish to
+            username = "${artifactory_user}" // The publisher user name
+            password = "${artifactory_password}" // The publisher password
+        }
+        defaults {
+            // Reference to Gradle publications defined in the build script.
+            // This is how we tell the Artifactory Plugin which artifacts should be
+            // published to Artifactory.
+            publications('mavenJava')
+            publishArtifacts = true
+            publishBuildInfo = true
+            // Properties to be attached to the published artifacts.
+            publishPom = true
         }
     }
 }
