@@ -1,7 +1,8 @@
 FROM gradle:6.6-jdk11 as builder
+ARG app_version=0.0.0
 WORKDIR /home/grpc-generator-template
 COPY . .
-RUN gradle publish
+RUN gradle publish -Prelease_version=${app_version}
 
 FROM nexus.exactpro.com:9000/th2-python-service-generator:1.0.8.5 as generator
 WORKDIR /home/grpc-generator-template
