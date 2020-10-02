@@ -20,7 +20,7 @@ package th2;
 import "google/protobuf/timestamp.proto";
 
 option java_multiple_files = true;
-option java_package = "com.exactpro.th2.infra.grpc";
+option java_package = "com.exactpro.th2.common.grpc";
 
 //--// Metadata structures //--//
 

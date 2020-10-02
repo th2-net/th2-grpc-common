@@ -75,17 +75,18 @@ class CustomDist(sdist):
         shutil.rmtree(package_name, ignore_errors=True)
 
 
-package_name = environ['APP_NAME'] if 'APP_NAME' in environ else 'grpc-generator-template'
+package_name = environ['APP_NAME'] if 'APP_NAME' in environ else 'grpc-common'
+package_version = environ['APP_VERSION'] if 'APP_VERSION' in environ else '1.0'
 
 setup(
     name=package_name,
-    version=environ['APP_VERSION'] if 'APP_VERSION' in environ else "1.0",
-    url='https://gitlab.exactpro.com/vivarium/th2/th2-core-open-source/grpc-generator-template',
+    version=package_version,
+    url='https://gitlab.exactpro.com/vivarium/th2/th2-core-open-source/grpc-common',
     license='Apache License 2.0',
     author='TH2-devs',
     python_requires='>=3.7',
     author_email='th2-devs@exactprosystems.com',
-    description='grpc-generator-template',
+    description='grpc-common',
     long_description=open('README.md').read(),
     packages=[package_name, f'{package_name}/proto', f'{package_name}/grpc'],
     package_data={f'{package_name}/proto': ['*.proto']},
