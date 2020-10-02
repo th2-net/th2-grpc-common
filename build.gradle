@@ -16,10 +16,6 @@ plugins {
     id "com.jfrog.artifactory" version '4.15.1'
 }
 
-plugins {
-    id "com.jfrog.artifactory" version '4.15.1'
-}
-
 apply plugin: "java"
 apply plugin: "java-library"
 apply plugin: "com.google.protobuf"
