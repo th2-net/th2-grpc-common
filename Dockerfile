@@ -29,7 +29,7 @@ RUN gradle --no-daemon clean build artifactoryPublish \
 FROM nexus.exactpro.com:9000/th2-python-service-generator:1.0.8.5 as generator
 WORKDIR /home/project
 COPY ./ .
-RUN /home/th2-python-service-generator/bin/th2-python-service-generator -p src/main/proto -w PythonServiceWriter -o src/gen/main/python
+RUN /home/th2-python-service-generator/bin/th2-python-service-generator -p src/main/proto/th2 -w PythonServiceWriter -o src/gen/main/python/th2
 
 FROM python:3.8-slim as python
 ARG pypi_repository_url
@@ -44,7 +44,5 @@ RUN export APP_NAME=${app_name} && \
     export APP_VERSION=${app_version} && \
     pip install -r requirements.txt && \
     python setup.py generate && \
-    touch src/gen/main/python/__init__.py && \
-    2to3 src/gen/main/python -w -n && \
     python setup.py sdist && \
     twine upload --repository-url ${pypi_repository_url} --username ${pypi_user} --password ${pypi_password} dist/*
