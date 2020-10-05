@@ -66,7 +66,7 @@ class ProtoGenerator(Command):
 class CustomDist(sdist):
 
     def run(self):
-        shutil.copytree('src/main/proto/th2', f'{package_name}/proto')
+        shutil.copytree('src/main/proto/th2', f'{package_name}/th2')
 
         shutil.copytree('src/gen/main/python/th2', f'{package_name}/grpc')
         Path(f'{package_name}/grpc/__init__.py').touch()
@@ -92,8 +92,8 @@ setup(
     author_email='th2-devs@exactprosystems.com',
     description='grpc-common',
     long_description=open('README.md').read(),
-    packages=[package_name, f'{package_name}/proto', f'{package_name}/grpc'],
-    package_data={f'{package_name}/proto': ['*.proto']},
+    packages=[package_name, f'{package_name}/th2', f'{package_name}/grpc'],
+    package_data={f'{package_name}/th2': ['*.proto']},
     cmdclass={
         'generate': ProtoGenerator,
         'sdist': CustomDist
