@@ -40,7 +40,7 @@ ARG app_version
 WORKDIR /home/project
 COPY --from=generator /home/project .
 RUN export APP_VERSION=${app_version} && \
-    printf "%s" "$app_version" > "version.info"
+    printf "%s" "$app_version" > "version.info" && \
     pip install -r requirements.txt && \
     python setup.py generate && \
     python setup.py sdist && \
