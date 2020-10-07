@@ -79,8 +79,13 @@ class CustomDist(sdist):
         shutil.rmtree(package_name, ignore_errors=True)
 
 
-package_name = environ['APP_NAME'].replace('-', '_') if 'APP_NAME' in environ else 'grpc_common'
-package_version = environ['APP_VERSION'] if 'APP_VERSION' in environ else '1.0'
+package_name = 'grpc_common'
+
+with open('version.info', 'r') as file:
+    package_version = file.read()
+
+with open('README.md', 'r') as file:
+    long_description = file.read()
 
 setup(
     name=package_name,
@@ -91,9 +96,9 @@ setup(
     python_requires='>=3.7',
     author_email='th2-devs@exactprosystems.com',
     description='grpc-common',
-    long_description=open('README.md').read(),
-    packages=[package_name, f'{package_name}/th2', f'{package_name}/grpc'],
-    package_data={f'{package_name}/th2': ['*.proto']},
+    long_description=long_description,
+    packages=['', package_name, f'{package_name}/th2', f'{package_name}/grpc'],
+    package_data={'': ['version.info'], f'{package_name}/th2': ['*.proto']},
     cmdclass={
         'generate': ProtoGenerator,
         'sdist': CustomDist

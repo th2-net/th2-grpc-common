@@ -35,13 +35,12 @@ FROM python:3.8-slim as python
 ARG pypi_repository_url
 ARG pypi_user
 ARG pypi_password
-ARG app_name
 ARG app_version
 
 WORKDIR /home/project
 COPY --from=generator /home/project .
-RUN export APP_NAME=${app_name} && \
-    export APP_VERSION=${app_version} && \
+RUN export APP_VERSION=${app_version} && \
+    printf "%s" "$app_version" > "version.info"
     pip install -r requirements.txt && \
     python setup.py generate && \
     python setup.py sdist && \
