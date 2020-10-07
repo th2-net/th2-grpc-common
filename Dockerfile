@@ -7,7 +7,6 @@ ARG artifactory_url
 ARG pypi_repository_url
 ARG pypi_user
 ARG pypi_password
-ARG app_name
 ARG app_version
 
 FROM gradle:6.6-jdk11 as builder
