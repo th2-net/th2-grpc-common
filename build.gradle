@@ -7,11 +7,13 @@ buildscript {
         }
         mavenLocal()
     }
+
     dependencies {
         classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.13"
         classpath "com.exactpro.th2:grpc-service-generator:2.0.0"
     }
 }
+
 plugins {
     id "com.jfrog.artifactory" version '4.15.1'
 }
@@ -43,6 +45,11 @@ repositories {
         url 'http://artifactory5.exp.exactpro.com/artifactory/libs-release'
     }
     mavenLocal()
+
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+    }
 }
 
 dependencies {

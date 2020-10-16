@@ -16,7 +16,6 @@ from setuptools import setup
 from distutils.cmd import Command
 import os
 from pkg_resources import resource_filename
-from grpc_tools import protoc
 from setuptools.command.sdist import sdist
 from distutils.dir_util import copy_tree
 import shutil
