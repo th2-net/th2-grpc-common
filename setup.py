@@ -13,12 +13,14 @@
 #   limitations under the License.
 
 from setuptools import setup
+import json
 from distutils.cmd import Command
 import os
 from pkg_resources import resource_filename
+from grpc_tools import protoc
 from setuptools.command.sdist import sdist
 from distutils.dir_util import copy_tree
-import shutil
+from shutil import rmtree
 from pathlib import Path
 from lib2to3.main import main as convert2to3
 
@@ -52,7 +54,6 @@ class ProtoGenerator(Command):
         protos_include = [f'--proto_path={proto_path}'] + \
                          [f'--proto_path={resource_filename(x[0], x[1])}' for x in protos]
 
-        from grpc_tools import protoc
         for proto_file in proto_files:
             command = ['grpc_tools.protoc'] + \
                       protos_include + \
@@ -66,37 +67,43 @@ class ProtoGenerator(Command):
 class CustomDist(sdist):
 
     def run(self):
-        copy_tree(f'src/main/proto/{package_name}', f'{package_name}')
+        copy_tree(f'src/main/proto/{package_name}', package_name)
 
-        copy_tree(f'src/gen/main/python/{package_name}', f'{package_name}')
+        copy_tree(f'src/gen/main/python/{package_name}', package_name)
         Path(f'{package_name}/__init__.py').touch()
-        convert2to3('lib2to3.fixes', [f'{package_name}', '-w', '-n'])
+        convert2to3('lib2to3.fixes', [package_name, '-w', '-n'])
 
         sdist.run(self)
 
-        shutil.rmtree(package_name, ignore_errors=True)
+        rmtree(package_name, ignore_errors=True)
 
 
-package_name = 'grpc_common'
+with open('package_info.json', 'r') as file:
+    package_info = json.load(file)
 
-with open('version.info', 'r') as file:
-    package_version = file.read()
+package_name = package_info['package_name'].replace('-', '_')
+package_version = package_info['package_version']
 
 with open('README.md', 'r') as file:
     long_description = file.read()
 
+
 setup(
     name=package_name,
     version=package_version,
+    description=package_name,
+    long_description=long_description,
+    author='TH2-devs',
+    author_email='th2-devs@exactprosystems.com',
     url='https://gitlab.exactpro.com/vivarium/th2/th2-core-open-source/th2-grpc-common',
     license='Apache License 2.0',
-    author='TH2-devs',
     python_requires='>=3.7',
-    author_email='th2-devs@exactprosystems.com',
-    description='grpc-common',
-    long_description=long_description,
+    install_requires=[
+        'grpcio-tools==1.33.1',
+        'google-api-core==1.23.0',
+    ],
     packages=['', package_name],
-    package_data={'': ['version.info'], package_name: ['*.proto']},
+    package_data={'': ['package_info.json'], package_name: ['*.proto']},
     cmdclass={
         'generate': ProtoGenerator,
         'sdist': CustomDist
