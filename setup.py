@@ -17,7 +17,6 @@ import json
 from distutils.cmd import Command
 import os
 from pkg_resources import resource_filename
-from grpc_tools import protoc
 from setuptools.command.sdist import sdist
 from distutils.dir_util import copy_tree
 from shutil import rmtree
@@ -54,6 +53,7 @@ class ProtoGenerator(Command):
         protos_include = [f'--proto_path={proto_path}'] + \
                          [f'--proto_path={resource_filename(x[0], x[1])}' for x in protos]
 
+        from grpc_tools import protoc
         for proto_file in proto_files:
             command = ['grpc_tools.protoc'] + \
                       protos_include + \
