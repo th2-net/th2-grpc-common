@@ -12,16 +12,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from setuptools import setup
 import json
-from distutils.cmd import Command
 import os
-from pkg_resources import resource_filename
-from setuptools.command.sdist import sdist
+from distutils.cmd import Command
 from distutils.dir_util import copy_tree
-from shutil import rmtree
+from distutils.sysconfig import get_python_lib
 from pathlib import Path
-from lib2to3.main import main as convert2to3
+from shutil import rmtree
+
+from pkg_resources import resource_filename
+from setuptools import setup
+from setuptools.command.sdist import sdist
 
 
 class ProtoGenerator(Command):
@@ -51,7 +52,8 @@ class ProtoGenerator(Command):
 
         protos = [('grpc_tools', '_proto')]
         protos_include = [f'--proto_path={proto_path}'] + \
-                         [f'--proto_path={resource_filename(x[0], x[1])}' for x in protos]
+                         [f'--proto_path={resource_filename(x[0], x[1])}' for x in protos] + \
+                         [f'--proto_path={get_python_lib()}']
 
         from grpc_tools import protoc
         for proto_file in proto_files:
@@ -71,7 +73,6 @@ class CustomDist(sdist):
 
         copy_tree(f'src/gen/main/python/{package_name}', package_name)
         Path(f'{package_name}/__init__.py').touch()
-        convert2to3('lib2to3.fixes', [package_name, '-w', '-n'])
 
         sdist.run(self)
 
@@ -99,8 +100,7 @@ setup(
     license='Apache License 2.0',
     python_requires='>=3.7',
     install_requires=[
-        'grpcio-tools==1.33.1',
-        'google-api-core==1.23.0',
+        'grpcio-tools==1.33.1'
     ],
     packages=['', package_name],
     package_data={'': ['package_info.json'], package_name: ['*.proto']},
