@@ -104,6 +104,22 @@ message RequestStatus {
   string message = 2;
 }
 
+//--// Settings //--//
+enum FailUnexpected {
+  NO = 0; // comparison won't fail in case of unexpected fields or messages
+  FIELDS = 1; // comparison will fail in case of unexpected fields only
+  FIELDS_AND_MESSAGES = 2; // comparison will fail in case of unexpected fields or messages
+}
+
+message ComparisonSettings {
+  /*
+  * These fields will not be considered during comparison. It concerns fields with simple or collection types.
+  * Comparison result will have the NA status for them.
+  */
+  repeated string ignore_fields = 1;
+  FailUnexpected fail_unexpected = 2;
+}
+
 //--// Message filter //--//
 
 enum FilterOperation {
@@ -112,6 +128,7 @@ enum FilterOperation {
   EMPTY = 2;
   NOT_EMPTY = 3;
 }
+
 message ValueFilter {
   FilterOperation operation = 1;
   bool key = 2;
@@ -121,13 +138,16 @@ message ValueFilter {
     ListValueFilter list_filter = 5;
   }
 }
+
 message ListValueFilter {
   repeated ValueFilter values = 1;
 }
+
 message MessageFilter {
   string messageType = 1;
   string direction = 2;
   map<string, ValueFilter> fields = 3;
+  ComparisonSettings comparison_settings = 4;
 }
 
 //--// Checkpoint //--//
