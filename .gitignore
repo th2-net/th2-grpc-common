@@ -1,7 +1,9 @@
 .idea
-
 .gradle
+
+gen
 build
+shared
 
 __pycache__/
 *.py[cod]
