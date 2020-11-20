@@ -29,15 +29,11 @@ jobs:
         entrypoint: /home/service/bin/service
         args: |
           -p /github/workspace/src/main/proto/${{steps.version.outputs.prop}} -w PythonServiceWriter -o /github/workspace/src/gen/main/python/${{steps.version.outputs.prop}}
-    - name: Test result of codegen
+    - name: Build package
       run: |
-        cd /home/runner/work/th2-grpc-common/
-        find . | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
-    # - name: Build package
-    #   run: |
-    #     pip install -r requirements.txt
-    #     python setup.py generate
-    #     python setup.py sdist
+        pip install -r requirements.txt
+        python setup.py generate -s
+        python setup.py sdist
 #     - name: Publish distribution to Test PyPI
 #       uses: pypa/gh-action-pypi-publish@master
 #       with:
