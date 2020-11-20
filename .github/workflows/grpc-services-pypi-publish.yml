@@ -31,6 +31,7 @@ jobs:
           -p /github/workspace/src/main/proto/${{steps.version.outputs.prop}} -w PythonServiceWriter -o /github/workspace/src/gen/main/python/${{steps.version.outputs.prop}}
     - name: Build package
       run: |
+        ls -l /home/runner/work/th2-grpc-common/th2-grpc-common/src/gen/main/python/
         pip install -r requirements.txt
         python setup.py generate -s
         python setup.py sdist
