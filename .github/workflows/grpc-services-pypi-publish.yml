@@ -34,7 +34,7 @@ jobs:
       uses: docker://busybox:1.32
       with:
         entrypoint: chown
-        args: -R /github/workspace/src/
+        args: $(id -u):$(id -g) -R /github/workspace/
     - name: Build package
       run: |
         ls -l /home/runner/work/th2-grpc-common/th2-grpc-common/src/gen/main/python/
