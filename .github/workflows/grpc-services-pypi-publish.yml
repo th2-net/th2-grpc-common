@@ -30,6 +30,11 @@ jobs:
         entrypoint: /home/service/bin/service
         args: |
           -p /github/workspace/src/main/proto/${{steps.version.outputs.prop}} -w PythonServiceWriter -o /github/workspace/src/gen/main/python/${{steps.version.outputs.prop}}
+    - name: Fix rights
+      uses: docker://busybox:1.32
+      with:
+        entrypoint: chown
+        args: -R /github/workspace/src/
     - name: Build package
       run: |
         ls -l /home/runner/work/th2-grpc-common/th2-grpc-common/src/gen/main/python/
