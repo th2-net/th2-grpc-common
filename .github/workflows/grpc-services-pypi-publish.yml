@@ -26,6 +26,7 @@ jobs:
     - name: Run codegen
       uses: docker://ghcr.io/th2-net/th2-python-service-generator:1.1.1
       with:
+        options: --user "$(id -u):$(id -g)"
         entrypoint: /home/service/bin/service
         args: |
           -p /github/workspace/src/main/proto/${{steps.version.outputs.prop}} -w PythonServiceWriter -o /github/workspace/src/gen/main/python/${{steps.version.outputs.prop}}
