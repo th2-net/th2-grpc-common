@@ -1,7 +1,7 @@
 # gRPC Common Library
 
-This library contains all common 
-This tool generates code from `.proto` files and upload built packages (`.proto` files and generated code) to specified repositories.
+This library contains common proto messages that are used in all th2 components. <br>
+Tool generates code from `.proto` files and upload built packages (`.proto` files and generated code) to specified repositories.
 
 ## How to use:
 1. Create a directory with the same name as project name (use underscores instead of dashes) under `src/main/proto` directory (remove other files and directories if they exist).
