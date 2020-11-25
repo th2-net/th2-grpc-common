@@ -82,9 +82,8 @@ class CustomDist(sdist):
 
         make_packages(package_name)
 
-        copy_tree(f'src/main/proto/{package_name}', f'{package_name}/proto')
-        proto_dirs = [x[0] for x in os.walk(f'{package_name}/proto')]
-        packages.extend(proto_dirs)
+        copy_tree(f'src/main/proto/{package_name}', package_name)
+        proto_dirs = [x[0] for x in os.walk(package_name)]
         package_data.update(dict.fromkeys(proto_dirs, ['*.proto']))
 
         sdist.run(self)
