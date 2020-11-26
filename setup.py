@@ -83,7 +83,8 @@ class CustomDist(sdist):
         make_packages(package_name)
 
         self.distribution.packages = [''] + find_packages(include=[package_name, f'{package_name}.*'])
-        self.distribution.package_data = {'': ['package_info.json'], **dict.fromkeys(packages[1:], ['*.proto'])}
+        self.distribution.package_data = {'': ['package_info.json'],
+                                          **dict.fromkeys(self.distribution.packages[1:], ['*.proto'])}
 
         sdist.run(self)
 
