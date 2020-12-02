@@ -4,6 +4,7 @@
 gen
 build
 shared
+out
 
 __pycache__/
 *.py[cod]
