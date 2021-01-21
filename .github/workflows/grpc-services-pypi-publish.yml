@@ -35,7 +35,7 @@ jobs:
         filename: './package_info.json'
         key: 'package_version'
         value: ${{ steps.release_ver.outputs.value }}
-    - name: Show release version
+    - name: Show package version
       run: echo ${{ steps.release_ver.outputs.value }}
     - name: Set up Python 3.7
       uses: actions/setup-python@v1
@@ -60,9 +60,9 @@ jobs:
     #     user: __token__
     #     password: ${{ secrets.TEST_PYPI_PASSWORD }}
     #     repository_url: https://test.pypi.org/legacy/
-    # - name: Publish distribution to PyPI
-    #   uses: pypa/gh-action-pypi-publish@master
-    #   with:
-    #     user: __token__
-    #     password: ${{ secrets.PYPI_PASSWORD }}
-    #     repository_url: https://upload.pypi.org/legacy/
+    - name: Publish distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_PASSWORD }}
+        repository_url: https://upload.pypi.org/legacy/
