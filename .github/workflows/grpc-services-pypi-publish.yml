@@ -34,14 +34,14 @@ jobs:
       with:
         cond: ${{ steps.branch.outputs.branch_name == 'master' }}
         if_true: "${{ steps.pack_ver.outputs.prop }}"
-        if_false: "${{ steps.pack_ver.outputs.prop }}-${{ github.run_number }}"
+        if_false: "${{ steps.pack_ver.outputs.prop }}.dev${{ github.run_number }}"
     - name: Define custom package name
       id: release_name
       uses: haya14busa/action-cond@v1
       with:
         cond: ${{ steps.branch.outputs.branch_name == 'master' }}
         if_true: "${{ steps.pack_name.outputs.prop }}"
-        if_false: "${{ steps.pack_name.outputs.prop }}-${{ steps.branch.outputs.branch_name }}"
+        if_false: "${{ steps.pack_name.outputs.prop }}_$(echo ${{ steps.branch.outputs.branch_name }} | sed 's/-/_/g')"
     - name: Set name for current build in package_info.json
       uses: MerthinTechnologies/edit-json-action@v1
       with:
@@ -70,11 +70,11 @@ jobs:
         entrypoint: /home/service/bin/service
         args: |
           -p /github/workspace/src/main/proto/${{steps.release_ver.outputs.value}} -w PythonServiceWriter -o /github/workspace/src/gen/main/python/${{steps.release_ver.outputs.value}}
-    - name: Build package
-      run: |
-        pip install -r requirements.txt
-        python setup.py generate -s
-        python setup.py sdist
+    # - name: Build package
+    #   run: |
+    #     pip install -r requirements.txt
+    #     python setup.py generate -s
+    #     python setup.py sdist
     # - name: Publish distribution to Test PyPI
     #   uses: pypa/gh-action-pypi-publish@master
     #   with:
