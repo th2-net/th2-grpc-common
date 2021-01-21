@@ -1,4 +1,4 @@
-name: Build and publish Python distributions to PyPI
+name: Dev build and publish Python distributions to PyPI
 
 on:
   push:
@@ -13,9 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
-    # - name: Get branch name
-    #   id: branch_name
-    #   run: echo ::set-output name=value::${GITHUB_REF#refs/*/}
+# Prepare custom build version
     - name: Get package version
       id: pack_ver
       uses: notiz-dev/github-action-json-property@release
@@ -27,71 +25,39 @@ jobs:
       run: echo ::set-output name=value::"${{ steps.pack_ver.outputs.prop }}.dev${{ github.run_id }}"
     - name: Show package version
       run: echo ${{ steps.release_ver.outputs.value }}
-    # - name: Get package name
-    #   id: pack_name
-    #   uses: notiz-dev/github-action-json-property@release
-    #   with: 
-    #     path: package_info.json
-    #     prop_path: package_name
-    # - name: Define custom release_version
-    #   id: release_ver
-    #   uses: haya14busa/action-cond@v1
-    #   with:
-    #     cond: ${{ steps.branch.outputs.branch_name == 'master' }}
-    #     if_true: "${{ steps.pack_ver.outputs.prop }}"
-    #     if_false: "${{ steps.pack_ver.outputs.prop }}.dev${{ github.run_number }}"
-    # - name: Define custom package name
-    #   id: release_name
-    #   uses: haya14busa/action-cond@v1
-    #   with:
-    #     cond: ${{ steps.branch.outputs.branch_name == 'master' }}
-    #     if_true: "${{ steps.pack_name.outputs.prop }}"
-    #     # if_false: "${{ steps.pack_name.outputs.prop }}_$(echo ${{ steps.branch.outputs.branch_name }} | sed 's/-/_/g')"
-    #     if_false: "${{ steps.pack_name.outputs.prop }}"
-    # - name: Set name for current build in package_info.json
-    #   uses: MerthinTechnologies/edit-json-action@v1
-    #   with:
-    #     filename: './package_info.json'
-    #     key: 'package_name'
-    #     value: ${{ steps.release_name.outputs.value }}
-
-    # - name: Set version for current build in package_info.json
-    #   uses: MerthinTechnologies/edit-json-action@v1
-    #   with:
-    #     filename: './package_info.json'
-    #     key: 'package_version'
-    #     value: "${{ steps.pack_ver.outputs.prop }}.dev${{ github.run_number }}"
-
-    # - name: Show package name
-    #   run: echo ${{ steps.release_name.outputs.value }}
-    # - name: Show package version
-    #   run: echo ${{ steps.release_ver.outputs.value }}
-    # - name: Set up Python 3.7
-    #   uses: actions/setup-python@v1
-    #   with:
-    #     python-version: 3.7
-    # - name: Create output folder
-    #   run: mkdir -p src/gen/main/python/${{steps.release_ver.outputs.value}}
-    # - name: Run codegen
-    #   uses: docker://ghcr.io/th2-net/th2-python-service-generator:1.1.1
-    #   with:
-    #     entrypoint: /home/service/bin/service
-    #     args: |
-    #       -p /github/workspace/src/main/proto/${{steps.release_ver.outputs.value}} -w PythonServiceWriter -o /github/workspace/src/gen/main/python/${{steps.release_ver.outputs.value}}
-    # - name: Build package
-    #   run: |
-    #     pip install -r requirements.txt
-    #     python setup.py generate -s
-    #     python setup.py sdist
-    # - name: Publish distribution to Test PyPI
+    - name: Set version for current build in package_info.json
+      uses: MerthinTechnologies/edit-json-action@v1
+      with:
+        filename: './package_info.json'
+        key: 'package_version'
+        value: ${{ steps.release_ver.outputs.value }}
+# Build and publish
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Create output folder
+      run: mkdir -p src/gen/main/python/${{steps.release_ver.outputs.value}}
+    - name: Run codegen
+      uses: docker://ghcr.io/th2-net/th2-python-service-generator:1.1.1
+      with:
+        entrypoint: /home/service/bin/service
+        args: |
+          -p /github/workspace/src/main/proto/${{steps.release_ver.outputs.value}} -w PythonServiceWriter -o /github/workspace/src/gen/main/python/${{steps.release_ver.outputs.value}}
+    - name: Build package
+      run: |
+        pip install -r requirements.txt
+        python setup.py generate -s
+        python setup.py sdist
+    - name: Publish distribution to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        user: __token__
+        password: ${{ secrets.TEST_PYPI_PASSWORD }}
+        repository_url: https://test.pypi.org/legacy/
+    # - name: Publish distribution to PyPI
     #   uses: pypa/gh-action-pypi-publish@master
     #   with:
     #     user: __token__
-    #     password: ${{ secrets.TEST_PYPI_PASSWORD }}
-    #     repository_url: https://test.pypi.org/legacy/
-    # # - name: Publish distribution to PyPI
-    # #   uses: pypa/gh-action-pypi-publish@master
-    # #   with:
-    # #     user: __token__
-    # #     password: ${{ secrets.PYPI_PASSWORD }}
-    # #     repository_url: https://upload.pypi.org/legacy/
+    #     password: ${{ secrets.PYPI_PASSWORD }}
+    #     repository_url: https://upload.pypi.org/legacy/
