@@ -3,7 +3,7 @@ name: Build and publish Python distributions to PyPI
 on:
   push:
     branches-ignore:
-    - master
+    - custom-build
 #     paths:
 #     - package_info.json
 
