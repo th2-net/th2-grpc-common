@@ -21,7 +21,7 @@ jobs:
       uses: notiz-dev/github-action-json-property@release
       with: 
         path: package_info.json
-        prop_path: package_name
+        prop_path: package_version
     - name: Define release_version
       id: release_ver
       uses: haya14busa/action-cond@v1
