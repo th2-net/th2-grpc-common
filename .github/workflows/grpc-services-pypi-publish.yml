@@ -2,8 +2,8 @@ name: Build and publish Python distributions to PyPI
 
 on:
   push:
-    branches:
-    - master
+    # branches:
+    # - master
 #     paths:
 #     - package_info.json
 
@@ -13,24 +13,42 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
+    - name: Get branch name
+      id: branch
+      run: echo ::set-output name=branch_name::${GITHUB_REF#refs/*/}
     - name: Get package version
       id: version
       uses: notiz-dev/github-action-json-property@release
       with: 
         path: package_info.json
         prop_path: package_name
+    - name: Define release_version
+      id: release_ver
+      uses: haya14busa/action-cond@v1
+      with:
+        cond: ${{ steps.branch.outputs.branch_name == 'master' }}
+        if_true: "${{ steps.version.outputs.prop }}"
+        if_false: "${{ steps.version.outputs.prop }}-${{ steps.branch.outputs.branch_name }}-${{ github.run_number }}"
+    - name: Edit version for current build
+      uses: MerthinTechnologies/edit-json-action@v1
+      with:
+        filename: './package_info.json'
+        key: 'package_version'
+        value: ${{ steps.release_ver.outputs.value }}
+    - name: Show release version
+      run: echo ${{ steps.release_ver.outputs.value }}
     - name: Set up Python 3.7
       uses: actions/setup-python@v1
       with:
         python-version: 3.7
     - name: Create output folder
-      run: mkdir -p src/gen/main/python/${{steps.version.outputs.prop}}
+      run: mkdir -p src/gen/main/python/${{steps.release_ver.outputs.value}}
     - name: Run codegen
       uses: docker://ghcr.io/th2-net/th2-python-service-generator:1.1.1
       with:
         entrypoint: /home/service/bin/service
         args: |
-          -p /github/workspace/src/main/proto/${{steps.version.outputs.prop}} -w PythonServiceWriter -o /github/workspace/src/gen/main/python/${{steps.version.outputs.prop}}
+          -p /github/workspace/src/main/proto/${{steps.release_ver.outputs.value}} -w PythonServiceWriter -o /github/workspace/src/gen/main/python/${{steps.release_ver.outputs.value}}
     - name: Build package
       run: |
         pip install -r requirements.txt
@@ -42,9 +60,9 @@ jobs:
     #     user: __token__
     #     password: ${{ secrets.TEST_PYPI_PASSWORD }}
     #     repository_url: https://test.pypi.org/legacy/
-    - name: Publish distribution to PyPI
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_PASSWORD }}
-        repository_url: https://upload.pypi.org/legacy/
+    # - name: Publish distribution to PyPI
+    #   uses: pypa/gh-action-pypi-publish@master
+    #   with:
+    #     user: __token__
+    #     password: ${{ secrets.PYPI_PASSWORD }}
+    #     repository_url: https://upload.pypi.org/legacy/
