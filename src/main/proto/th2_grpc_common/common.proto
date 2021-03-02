@@ -79,6 +79,7 @@ message Message {
 }
 
 message RawMessage {
+  EventID parent_event_id = 3; // It maybe used to store event related to message life cycle
   RawMessageMetadata metadata = 1;
   bytes body = 2;
 }
