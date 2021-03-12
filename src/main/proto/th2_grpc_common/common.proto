@@ -173,9 +173,24 @@ message MetadataFilter {
 }
 
 message RootMessageFilter {
+  /*
+  * The message type to match
+  */
   string messageType = 1;
-  map<string, ValueFilter> fields = 2;
+
+  /*
+  * The filter to match message's content
+  */
+  MessageFilter message_filter = 2;
+
+  /*
+  * The filter to match message's metadata content
+  */
   MetadataFilter metadata_filter = 3;
+
+  /*
+  * Settings that will be used for comparing both filters (MessageFilter and MetadataFilter)
+  */
   RootComparisonSettings comparison_settings = 4;
 }
 
