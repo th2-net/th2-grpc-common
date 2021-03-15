@@ -132,11 +132,19 @@ enum FailUnexpected {
 
 message ComparisonSettings {
   /*
+  * Values are not considered during the comparison. Please use RootComparisonSettings#ignore_fields instead.
+  * This field will be removed in future releases.
+  */
+  repeated string ignore_fields = 1 [deprecated = true];
+  FailUnexpected fail_unexpected = 2;
+}
+
+message RootComparisonSettings {
+  /*
   * These fields will not be considered during comparison. It concerns fields with simple or collection types.
   * Comparison result will have the NA status for them.
   */
   repeated string ignore_fields = 1;
-  FailUnexpected fail_unexpected = 2;
 }
 
 //--// Message filter //--//
@@ -163,10 +171,45 @@ message ListValueFilter {
 }
 
 message MessageFilter {
-  string messageType = 1;
-  string direction = 2;
+  // Is not used for filtering sub-messages. Will be removed in the future
+  string messageType = 1 [deprecated = true];
+
+  // Is not used for filtering sub-messages. Will be removed in the future
+  string direction = 2 [deprecated = true];
   map<string, ValueFilter> fields = 3;
   ComparisonSettings comparison_settings = 4;
+}
+
+message MetadataFilter {
+  message SimpleFilter {
+    FilterOperation operation = 1;
+    bool key = 2;
+    string value = 3;
+  }
+
+  map<string, SimpleFilter> property_filters = 1;
+}
+
+message RootMessageFilter {
+  /*
+  * The message type to match
+  */
+  string messageType = 1;
+
+  /*
+  * The filter to match message's content
+  */
+  MessageFilter message_filter = 2;
+
+  /*
+  * The filter to match message's metadata content
+  */
+  MetadataFilter metadata_filter = 3;
+
+  /*
+  * Settings that will be used for comparing both filters (MessageFilter and MetadataFilter)
+  */
+  RootComparisonSettings comparison_settings = 4;
 }
 
 //--// Checkpoint //--//
