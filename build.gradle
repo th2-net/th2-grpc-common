@@ -1,13 +1,13 @@
 buildscript {
     repositories {
         maven {
-            name 'Bintray'
-            url 'https://dl.bintray.com/exactpro/th2'
+            name 'Sonatype'
+            url 'https://s01.oss.sonatype.org/content/repositories/releases/com/exactpro/th2/'
         }
     }
 
     dependencies {
-        classpath "com.exactpro.th2:grpc-service-generator:2.0.5"
+        classpath "com.exactpro.th2:grpc-service-generator:3.1.8"
     }
 }
 plugins {
@@ -37,10 +37,10 @@ ext {
 
 repositories {
     mavenCentral()
-    maven {
-        name 'Bintray'
-        url 'https://dl.bintray.com/exactpro/th2'
-    }
+    // maven {
+    //     name 'Bintray'
+    //     url 'https://dl.bintray.com/exactpro/th2'
+    // }
     maven {
             name 'Sonatype_snapshots'
             url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
