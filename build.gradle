@@ -1,8 +1,12 @@
 buildscript {
     repositories {
         maven {
+            name 'Bintray'
+            url 'https://dl.bintray.com/exactpro/th2'
+        }
+        maven {
             name 'Sonatype'
-            url 'https://s01.oss.sonatype.org/content/repositories/releases/com/exactpro/th2/'
+            url 'https://s01.oss.sonatype.org/content/repositories/releases/'
         }
     }
 
@@ -37,10 +41,10 @@ ext {
 
 repositories {
     mavenCentral()
-    // maven {
-    //     name 'Bintray'
-    //     url 'https://dl.bintray.com/exactpro/th2'
-    // }
+    maven {
+        name 'Bintray'
+        url 'https://dl.bintray.com/exactpro/th2'
+    }
     maven {
             name 'Sonatype_snapshots'
             url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
