@@ -2,7 +2,8 @@ buildscript {
     repositories {
         maven {
             name 'Sonatype'
-            url 'https://s01.oss.sonatype.org/content/repositories/releases'
+            // url 'https://s01.oss.sonatype.org/content/repositories/releases'
+            url 'https://dl.bintray.com/exactpro/th2'
         }
     }
 
