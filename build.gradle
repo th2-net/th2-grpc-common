@@ -19,8 +19,6 @@ plugins {
     id "com.google.protobuf" version "0.8.15"
 }
 
-// apply plugin: "com.exactpro.th2.service-generator"
-
 group = 'com.exactpro.th2'
 version = release_version
 
@@ -37,10 +35,6 @@ ext {
 
 repositories {
     mavenCentral()
-    // maven {
-    //     name 'Bintray'
-    //     url 'https://dl.bintray.com/exactpro/th2'
-    // }
     maven {
             name 'Sonatype_snapshots'
             url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
@@ -102,12 +96,6 @@ protobuf {
 // generateServices.dependsOn.add('generateProto')
 compileJava.dependsOn.add('generateProto')
 
-// serviceGeneration {
-//     settings {
-//         protoDir = "src/main/proto"
-//         outDir = "src/gen/main/services"
-//     }
-// }
 
 java {
     withJavadocJar()
