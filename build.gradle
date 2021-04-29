@@ -84,13 +84,6 @@ protobuf {
 
 compileJava.dependsOn.add('generateProto')
 
-serviceGeneration {
-    settings {
-        protoDir = "src/main/proto"
-        outDir = "src/gen/main/services"
-    }
-}
-
 java {
     withJavadocJar()
     withSourcesJar()
