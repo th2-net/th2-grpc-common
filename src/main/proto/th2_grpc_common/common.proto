@@ -200,8 +200,18 @@ message Checkpoint {
   string id = 1;
   map<string, DirectionCheckpoint> session_alias_to_direction_checkpoint = 2;
 
+  message CheckpointData {
+    int64 sequence = 1; // Message sequence number in session
+    google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
+  }
+
   message DirectionCheckpoint {
-    map<int32, int64> direction_to_sequence = 1;
+    /*
+    * Values are not considered in check1 since the 2.10.0 version. Please use direction_to_checkpoint_data instead.
+    * This field will be removed in future major releases.
+    */
+    map<int32, int64> direction_to_sequence = 1 [deprecated = true];
+    map<int32, CheckpointData> direction_to_checkpoint_data = 2;
   }
 }
 
