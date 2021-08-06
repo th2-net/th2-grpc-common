@@ -36,6 +36,7 @@ message MessageID {
   ConnectionID connection_id = 1;
   Direction direction = 2; // Transport direction.
   int64 sequence = 3; // Unique sequence number in session
+  repeated uint32 subsequence = 4; // List of nested sequences in addition to the main one
 }
 
 message MessageMetadata {
@@ -43,12 +44,14 @@ message MessageMetadata {
   google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
   string message_type = 3; // Message type by dictionary
   map<string, string> properties = 4; // Additional properties for the message
+  string protocol = 5; // Protocol to be used when encoding the message
 }
 
 message RawMessageMetadata {
   MessageID id = 1; // Message id should be unique in session
   google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
   map<string, string> properties = 3; // Additional properties for the raw message
+  string protocol = 4; // Protocol to be used when decoding the message
 }
 
 //--// Message body structure //--//
@@ -84,6 +87,17 @@ message RawMessage {
   bytes body = 2;
 }
 
+message AnyMessage {
+  oneof kind {
+    Message message = 1;
+    RawMessage raw_message = 2;
+  }
+}
+
+message MessageGroup {
+  repeated AnyMessage messages = 1;
+}
+
 //--// Message batch //--//
 
 message MessageBatch {
@@ -92,6 +106,10 @@ message MessageBatch {
 
 message RawMessageBatch {
   repeated RawMessage messages = 1;
+}
+
+message MessageGroupBatch {
+  repeated MessageGroup groups = 1;
 }
 
 //--// RPC call response //--//
