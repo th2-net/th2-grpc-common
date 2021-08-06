@@ -7,8 +7,6 @@ on:
     - version-*
 #     paths:
 #     - package_info.json
-    paths-ignore:
-      - README.md
 
 jobs:
   build-n-publish:

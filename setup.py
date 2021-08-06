@@ -1,4 +1,4 @@
-#   Copyright 2020-2020 Exactpro (Exactpro Systems Limited)
+#   Copyright 2020-2021 Exactpro (Exactpro Systems Limited)
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -58,8 +58,7 @@ class ProtoGenerator(Command):
         for proto_file in proto_files:
             command = ['grpc_tools.protoc'] + \
                       protos_include + \
-                      [f'--python_out={gen_path}', f'--grpc_python_out={gen_path}'] + \
-                      [f'--mypy_out={gen_path}'] + \
+                      ['--python_out={}'.format(gen_path), '--grpc_python_out={}'.format(gen_path)] + \
                       [proto_file]
 
             if protoc.main(command) != 0:
@@ -74,7 +73,6 @@ class CustomDist(sdist):
 
         copy_tree(f'src/gen/main/python/{package_name}', package_name)
         Path(f'{package_name}/__init__.py').touch()
-        Path(f'{package_name}/py.typed').touch()
 
         def make_packages(root_dir):
             for path in Path(root_dir).iterdir():
@@ -86,8 +84,7 @@ class CustomDist(sdist):
 
         self.distribution.packages = [''] + find_packages(include=[package_name, f'{package_name}.*'])
         self.distribution.package_data = {'': ['package_info.json'],
-                                          **dict.fromkeys(self.distribution.packages[1:],
-                                                          ['*.proto', 'py.typed', '*.pyi'])}
+                                          **dict.fromkeys(self.distribution.packages[1:], ['*.proto'])}
 
         sdist.run(self)
 
@@ -104,8 +101,7 @@ with open('README.md', 'r') as file:
     long_description = file.read()
 
 packages = [''] + find_packages(include=[package_name, f'{package_name}.*'])
-package_data = {'': ['package_info.json'],
-                **dict.fromkeys(packages[1:], ['*.proto', 'py.typed', '*.pyi'])}
+package_data = {'': ['package_info.json'], **dict.fromkeys(packages[1:], ['*.proto'])}
 
 
 setup(
@@ -120,8 +116,7 @@ setup(
     license='Apache License 2.0',
     python_requires='>=3.7',
     install_requires=[
-        'grpcio-tools==1.38.1',
-        'mypy-protobuf==2.5'
+        'grpcio-tools==1.33.1'
     ],
     packages=packages,
     package_data=package_data,
