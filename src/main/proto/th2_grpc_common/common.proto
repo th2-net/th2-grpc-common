@@ -154,6 +154,10 @@ enum FilterOperation {
   NOT_EQUAL = 1;
   EMPTY = 2;
   NOT_EMPTY = 3;
+  IN = 4;
+  LIKE = 5;
+  MORE = 6;
+  LESS = 7;
 }
 
 message ValueFilter {
@@ -163,11 +167,16 @@ message ValueFilter {
     string simple_filter = 3;
     MessageFilter message_filter = 4;
     ListValueFilter list_filter = 5;
+    ComplexFilter  complex_filter= 6;
   }
 }
 
 message ListValueFilter {
   repeated ValueFilter values = 1;
+}
+
+message ComplexFilter {
+  repeated string complex_values = 1;
 }
 
 message MessageFilter {
