@@ -40,7 +40,7 @@ If you wish to manually create and publish a package for Python:
 
 ### 3.4.0
 
-+ Added `WILDCARD` filter operation.
++ Added `WILDCARD` filter operation, which filter a field by wildcard expression.
 
 ### 3.3.0
 
