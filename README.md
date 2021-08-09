@@ -1,4 +1,4 @@
-# th2 gRPC common library (3.2.0)
+# th2 gRPC common library (3.4.0)
 
 This library contains common proto messages that are used in all th2 components. See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto") file for details. <br>
 Tool generates code from `.proto` files and uploads built packages (`.proto` files and generated code) to specified repositories.
@@ -38,9 +38,13 @@ If you wish to manually create and publish a package for Python:
 
 ## Release notes
 
-### 3.3.0
+### 3.4.0
 
 + Added `WILDCARD` filter operation.
+
+### 3.3.0
+
++ Added information about message timestamp into checkpoint message
 
 ### 3.2.0
 
