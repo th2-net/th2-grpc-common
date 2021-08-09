@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2020 Exactpro (Exactpro Systems Limited)
+ * Copyright 2020-2021 Exactpro (Exactpro Systems Limited)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ option java_package = "com.exactpro.th2.common.grpc";
 //--// Metadata structures //--//
 
 message ConnectionID {
-  string session_alias = 1; // Session identifier depends on protocol, target / sender
+  string session_alias = 1; // Session identifier depends on the protocol, target / sender
 }
 
 enum Direction {
@@ -73,13 +73,13 @@ message ListValue {
 //--// Message / Raw structures //--//
 
 message Message {
-  EventID parent_event_id = 3; // It maybe used to store event related to message life cycle
+  EventID parent_event_id = 3; // It can be used to store an event related to the message life cycle
   MessageMetadata metadata = 1;
   map<string, Value> fields = 2;
 }
 
 message RawMessage {
-  EventID parent_event_id = 3; // It maybe used to store event related to message life cycle
+  EventID parent_event_id = 3; //  It can be used to store an event related to the message life cycle
   RawMessageMetadata metadata = 1;
   bytes body = 2;
 }
@@ -200,8 +200,20 @@ message Checkpoint {
   string id = 1;
   map<string, DirectionCheckpoint> session_alias_to_direction_checkpoint = 2;
 
+  message CheckpointData {
+    int64 sequence = 1; // Message sequence number in session
+    google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
+  }
+
   message DirectionCheckpoint {
-    map<int32, int64> direction_to_sequence = 1;
+    /*
+    * It should contain one of these two fields - direction_to_sequence or direction_to_checkpoint_data, preferably the second one.
+    * If you set both of them, in check1 will be generated an error.
+    * If direction_to_sequence is filled, it will be converted to direction_to_checkpoint_data.
+    * This field will be removed in future major releases. Please use direction_to_checkpoint_data instead.
+    */
+    map<int32, int64> direction_to_sequence = 1 [deprecated = true];
+    map<int32, CheckpointData> direction_to_checkpoint_data = 2;
   }
 }
 
@@ -217,7 +229,7 @@ message EventID {
 
 message Event {
   EventID id = 1;
-  EventID parent_id = 2; // Event id of parent event. It is null for root event
+  EventID parent_id = 2; // Event id of a parent event. It is set to null for root event
   google.protobuf.Timestamp start_timestamp = 3;
   google.protobuf.Timestamp end_timestamp = 4;
   EventStatus status = 5; // Aggregated status of current and children events which sync written.
@@ -229,5 +241,5 @@ message Event {
 
 message EventBatch {
   EventID parent_event_id = 1;
-  repeated Event events = 2; // Events optional related to between themselves. No events outside this batch should refer to the events in this batch.
+  repeated Event events = 2; // Optional events related to each other. No events outside of this batch should refer to the events in this batch
 }
