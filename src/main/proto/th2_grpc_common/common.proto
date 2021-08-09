@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2020 Exactpro (Exactpro Systems Limited)
+ * Copyright 2020-2021 Exactpro (Exactpro Systems Limited)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -218,8 +218,20 @@ message Checkpoint {
   string id = 1;
   map<string, DirectionCheckpoint> session_alias_to_direction_checkpoint = 2;
 
+  message CheckpointData {
+    int64 sequence = 1; // Message sequence number in session
+    google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
+  }
+
   message DirectionCheckpoint {
-    map<int32, int64> direction_to_sequence = 1;
+    /*
+    * It should contain one of these two fields - direction_to_sequence or direction_to_checkpoint_data, preferably the second one.
+    * If you set both of them, in check1 will be generated an error.
+    * If direction_to_sequence is filled, it will be converted to direction_to_checkpoint_data.
+    * This field will be removed in future major releases. Please use direction_to_checkpoint_data instead.
+    */
+    map<int32, int64> direction_to_sequence = 1 [deprecated = true];
+    map<int32, CheckpointData> direction_to_checkpoint_data = 2;
   }
 }
 
