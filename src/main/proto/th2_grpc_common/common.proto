@@ -206,21 +206,14 @@ message Checkpoint {
   }
 
   message DirectionCheckpoint {
-    message DirectionToSequence {
-      option deprecated = true;
-      map<int32, int64> direction_to_sequence = 1;
-    }
-    message DirectionToCheckpointData {
-      map<int32, CheckpointData> direction_to_checkpoint_data = 1;
-    }
-    oneof direction_to_data {
-      /*
-      * If direction_to_sequence is filled, it will be converted to direction_to_checkpoint_data.
-      * This field will be removed in future major releases. Please use direction_to_checkpoint_data instead.
-      */
-      DirectionToSequence direction_to_sequence = 1;
-      DirectionToCheckpointData direction_to_checkpoint_data = 2;
-    }
+    /*
+    * It should contain one of these two fields - direction_to_sequence or direction_to_checkpoint_data, preferably the second one.
+    * If you set both of them, in check1 will be generated an error.
+    * If direction_to_sequence is filled, it will be converted to direction_to_checkpoint_data.
+    * This field will be removed in future major releases. Please use direction_to_checkpoint_data instead.
+    */
+    map<int32, int64> direction_to_sequence = 1 [deprecated = true];
+    map<int32, CheckpointData> direction_to_checkpoint_data = 2;
   }
 }
 
