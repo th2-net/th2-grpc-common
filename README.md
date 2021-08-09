@@ -38,6 +38,10 @@ If you wish to manually create and publish a package for Python:
 
 ## Release notes
 
+### 3.3.0
+
++ Added `WILDCARD` filter operation.
+
 ### 3.2.0
 
 + Implement stubs creation for Python
