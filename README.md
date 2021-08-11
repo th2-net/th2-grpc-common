@@ -1,4 +1,4 @@
-# th2 gRPC common library (3.5.0)
+# th2 gRPC common library (3.4.0)
 
 This library contains common proto messages that are used in all th2 components. See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto") file for details. <br>
 Tool generates code from `.proto` files and uploads built packages (`.proto` files and generated code) to specified repositories.
@@ -38,11 +38,23 @@ If you wish to manually create and publish a package for Python:
 
 ## Release notes
 
-### 3.5.0
+### 3.4.0
 
-+ Added `IN` filter operation, which filter a field by value from list
-+ Added `LIKE` filter operation, which filter a field by regEx expression
-+ Added `MORE` and `LESS` filter operations, which filter a field by comparing numeric values
++ Added `IN` and 'NOT_IN' filter operation, which filter a field by value from list
++ Added `LIKE` and 'NOT_LIKE' filter operation, which filter a field by regEx expression
++ Added `MORE`, `LESS`, 'NOT_MORE', 'NOT_LESS' filter operations, which filter a field by comparing numeric values
++ Added 'WILDCARD" and 'NOT_WILDCARD'  filter operations, which filter a field by specified wildcard expression. 
+
+The wildcard matcher uses the characters '?' and '*' to represent a single or multiple (zero or more) wildcard characters.
+
+This is the same as often found on Dos/Unix command lines
++ "c.txt", "*.txt"     --&gt; true
++ "c.txt", "*.jpg"     --&gt; false
++ "a/b/c.txt", "a/b/*" --&gt; true
++ "c.txt", "*.???"     --&gt; true
++ "c.txt", "*.????"    --&gt; false
+
+N.B. the sequence "*?" does not work properly at present in match strings.
 
 ### 3.3.0
 
