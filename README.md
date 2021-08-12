@@ -42,17 +42,17 @@ If you wish to manually create and publish a package for Python:
 
 + Added `IN` and 'NOT_IN' filter operation, which filter a field by value from list
 + Added `LIKE` and 'NOT_LIKE' filter operation, which filter a field by regEx expression
-+ Added `MORE`, `LESS`, 'NOT_MORE', 'NOT_LESS' filter operations, which filter a field by comparing numeric values
++ Added `MORE`, `LESS`, 'NOT_MORE', 'NOT_LESS' filter operations, which filter a field by comparing values
 + Added 'WILDCARD" and 'NOT_WILDCARD'  filter operations, which filter a field by specified wildcard expression. 
 
 The wildcard matcher uses the characters '?' and '*' to represent a single or multiple (zero or more) wildcard characters.
 
 This is the same as often found on Dos/Unix command lines
-+ "c.txt", "*.txt"     --&gt; true
-+ "c.txt", "*.jpg"     --&gt; false
-+ "a/b/c.txt", "a/b/*" --&gt; true
-+ "c.txt", "*.???"     --&gt; true
-+ "c.txt", "*.????"    --&gt; false
++ "abc-123", "*-123"     --&gt; true
++ "abc-123", "*-xyz"     --&gt; false
++ "abc-123", "ab*"       --&gt; true
++ "abc-123", "*-???"     --&gt; true
++ "abc-123", "*-????"    --&gt; false
 
 N.B. the sequence "*?" does not work properly at present in match strings.
 
