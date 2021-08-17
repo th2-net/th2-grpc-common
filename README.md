@@ -40,21 +40,19 @@ If you wish to manually create and publish a package for Python:
 
 ### 3.4.0
 
-+ Added `IN` and 'NOT_IN' filter operation, which filter a field by value from list
-+ Added `LIKE` and 'NOT_LIKE' filter operation, which filter a field by regEx expression
-+ Added `MORE`, `LESS`, 'NOT_MORE', 'NOT_LESS' filter operations, which filter a field by comparing values
-+ Added 'WILDCARD" and 'NOT_WILDCARD'  filter operations, which filter a field by specified wildcard expression. 
-
-The wildcard matcher uses the characters '?' and '*' to represent a single or multiple (zero or more) wildcard characters.
-
-This is the same as often found on Dos/Unix command lines
++ Added `IN` and `NOT_IN` filter operation, which filter a field by value from list of `String`.
++ Added `LIKE` and `NOT_LIKE` filter operation, which filter a field by `String` regEx expression.
++ Added `MORE`, `LESS`, `NOT_MORE`, `NOT_LESS` filter operations, which filter a field by comparing values(`numeric` types and `date/time` in ISO format).
++ Added `WILDCARD` and `NOT_WILDCARD`  filter operations, which filter a field by `String` specified wildcard expression.
+The wildcard matcher uses the characters `?` and `*` to represent a single or multiple (zero or more) wildcard characters.
+This is the same as often found on Dos/Unix command lines.
 + "abc-123", "*-123"     --&gt; true
 + "abc-123", "*-xyz"     --&gt; false
 + "abc-123", "ab*"       --&gt; true
 + "abc-123", "*-???"     --&gt; true
 + "abc-123", "*-????"    --&gt; false
 
-N.B. the sequence "*?" does not work properly at present in match strings.
+N.B. the sequence `*?` does not work properly at present in match strings.
 
 ### 3.3.0
 
