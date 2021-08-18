@@ -1,4 +1,4 @@
-# th2 gRPC common library (3.3.0)
+# th2 gRPC common library (3.4.0)
 
 This library contains common proto messages that are used in all th2 components. See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto") file for details. <br>
 Tool generates code from `.proto` files and uploads built packages (`.proto` files and generated code) to specified repositories.
@@ -37,6 +37,22 @@ If you wish to manually create and publish a package for Python:
     `PYPI_REPOSITORY_URL`, `PYPI_USER` and `PYPI_PASSWORD` are parameters for publishing.
 
 ## Release notes
+
+### 3.4.0
+
++ Added `IN` and `NOT_IN` filter operation, which filter a field by value from list of `String`.
++ Added `LIKE` and `NOT_LIKE` filter operation, which filter a field by `String` regEx expression.
++ Added `MORE`, `LESS`, `NOT_MORE`, `NOT_LESS` filter operations, which filter a field by comparing values(`numeric` types and `date/time` in ISO format).
++ Added `WILDCARD` and `NOT_WILDCARD`  filter operations, which filter a field by `String` specified wildcard expression.
+The wildcard matcher uses the characters `?` and `*` to represent a single or multiple (zero or more) wildcard characters.
+This is the same as often found on Dos/Unix command lines.
++ "abc-123", "*-123"     --&gt; true
++ "abc-123", "*-xyz"     --&gt; false
++ "abc-123", "ab*"       --&gt; true
++ "abc-123", "*-???"     --&gt; true
++ "abc-123", "*-????"    --&gt; false
+
+N.B. the sequence `*?` does not work properly at present in match strings.
 
 ### 3.3.0
 
