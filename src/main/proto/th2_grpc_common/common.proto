@@ -145,6 +145,7 @@ message RootComparisonSettings {
   * Comparison result will have the NA status for them.
   */
   repeated string ignore_fields = 1;
+  bool check_repeating_group_order = 2;
 }
 
 //--// Message filter //--//
