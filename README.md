@@ -40,7 +40,7 @@ If you wish to manually create and publish a package for Python:
 
 ### 3.5.0
 
-+ Added check repeating group flag
++ Added a new flags `check_repeating_group_order` and `keep_result_group_order` in `RootComparisonSettings` message
 
 ### 3.4.0
 

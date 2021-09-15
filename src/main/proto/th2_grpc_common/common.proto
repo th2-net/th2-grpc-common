@@ -146,6 +146,7 @@ message RootComparisonSettings {
   */
   repeated string ignore_fields = 1;
   bool check_repeating_group_order = 2;
+  bool keep_result_group_order = 3;
 }
 
 //--// Message filter //--//
