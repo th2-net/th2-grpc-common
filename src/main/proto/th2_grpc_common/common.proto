@@ -79,7 +79,11 @@ message Message {
   EventID parent_event_id = 3; // It maybe used to store event related to message life cycle
   MessageMetadata metadata = 1;
   map<string, Value> fields = 2 [deprecated = true];
-  string json = 4;
+
+  message Body {
+    string json = 1;
+  }
+  Body body = 4;
 }
 
 message RawMessage {
