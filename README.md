@@ -40,7 +40,8 @@ If you wish to manually create and publish a package for Python:
 
 ### 3.5.0
 
-+ Added new `json` field in the `Message` object. Marked `fields` field as deprecated
++ Added new `JSONMessage` message which has JSON representation of business message. 
+  It is added to the `AnyMessage` message under the `json_message` name and the `message` field has been marked as deprecated
 
 ### 3.4.0
 

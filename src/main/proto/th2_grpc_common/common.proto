@@ -78,12 +78,7 @@ message ListValue {
 message Message {
   EventID parent_event_id = 3; // It maybe used to store event related to message life cycle
   MessageMetadata metadata = 1;
-  map<string, Value> fields = 2 [deprecated = true];
-
-  message Body {
-    string json = 1;
-  }
-  Body body = 4;
+  map<string, Value> fields = 2;
 }
 
 message RawMessage {
@@ -94,8 +89,9 @@ message RawMessage {
 
 message AnyMessage {
   oneof kind {
-    Message message = 1;
+    Message message = 1 [deprecated = true];
     RawMessage raw_message = 2;
+    JSONMessage json_message = 3;
   }
 }
 
@@ -280,4 +276,16 @@ message Event {
 message EventBatch {
   EventID parent_event_id = 1;
   repeated Event events = 2; // Events optional related to between themselves. No events outside this batch should refer to the events in this batch.
+}
+
+// version 2
+
+message JSONMessage {
+  message Body {
+    bytes json = 1;
+  }
+
+  EventID parent_event_id = 1; // It maybe used to store event related to message life cycle
+  MessageMetadata metadata = 2;
+  Body body = 3;
 }
