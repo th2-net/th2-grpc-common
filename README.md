@@ -39,7 +39,7 @@ If you wish to manually create and publish a package for Python:
 ## Release notes
 
 ### 3.5.0
-+ Move SimpleList parameter from ValueFilter to SimpleFilter. Change `simple_filter` in `ValueFilter` from `string` to `SimpleFilter`. 
++ Add SimpleList parameter to SimpleFilter. 
 
 ### 3.4.0
 
