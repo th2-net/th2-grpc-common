@@ -170,9 +170,10 @@ message ValueFilter {
   FilterOperation operation = 1;
   bool key = 2;
   oneof kind {
-    SimpleFilter simple_filter = 3;
+    string simple_filter = 3;
     MessageFilter message_filter = 4;
     ListValueFilter list_filter = 5;
+    SimpleList simple_list = 6;
   }
 }
 
@@ -183,15 +184,6 @@ message ListValueFilter {
 message SimpleList {
   repeated string simple_values = 1;
 }
-
-message SimpleFilter {
-    FilterOperation operation = 1;
-    bool key = 2;
-    oneof kind {
-          string value = 3;
-          SimpleList simple_list = 4;
-      }
-  }
 
 message MessageFilter {
   // Is not used for filtering sub-messages. Will be removed in the future
@@ -204,6 +196,15 @@ message MessageFilter {
 }
 
 message MetadataFilter {
+  message SimpleFilter {
+    FilterOperation operation = 1;
+    bool key = 2;
+    oneof king {
+        string value = 3;
+        SimpleList simple_list = 4;
+    }
+  }
+
   map<string, SimpleFilter> property_filters = 1;
 }
 
