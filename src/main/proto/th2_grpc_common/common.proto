@@ -199,7 +199,7 @@ message MetadataFilter {
   message SimpleFilter {
     FilterOperation operation = 1;
     bool key = 2;
-    oneof king {
+    oneof filter_value {
         string value = 3;
         SimpleList simple_list = 4;
     }
