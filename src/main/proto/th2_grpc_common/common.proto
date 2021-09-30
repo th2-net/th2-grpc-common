@@ -194,14 +194,12 @@ message MessageFilter {
   string direction = 2 [deprecated = true];
   map<string, ValueFilter> fields = 3;
   ComparisonSettings comparison_settings = 4;
-  google.protobuf.StringValue description = 5;
 }
 
 message MetadataFilter {
   message SimpleFilter {
     FilterOperation operation = 1;
     bool key = 2;
-    google.protobuf.StringValue description = 5;
     oneof filter_value {
         string value = 3;
         SimpleList simple_list = 4;
@@ -231,6 +229,11 @@ message RootMessageFilter {
   * Settings that will be used for comparing both filters (MessageFilter and MetadataFilter)
   */
   RootComparisonSettings comparison_settings = 4;
+
+  /*
+  * Description that may contain some information about the RootMessageFilter
+  */
+  google.protobuf.StringValue description = 5;
 }
 
 //--// Checkpoint //--//
