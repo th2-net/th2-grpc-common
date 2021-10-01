@@ -1,4 +1,4 @@
-# th2 gRPC common library (3.6.0)
+# th2 gRPC common library (3.7.0)
 
 This library contains common proto messages that are used in all th2 components. See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto") file for details. <br>
 Tool generates code from `.proto` files and uploads built packages (`.proto` files and generated code) to specified repositories.
@@ -38,11 +38,14 @@ If you wish to manually create and publish a package for Python:
 
 ## Release notes
 
+### 3.7.0
++ Added `check_repeating_group_order` parameter to `RootComparisonSettings`
+
 ### 3.6.0
-+ Add `description` parameter to `RootMessageFilter`.
++ Added `description` parameter to `RootMessageFilter`.
 
 ### 3.5.0
-+ Add SimpleList parameter to SimpleFilter. 
++ Added SimpleList parameter to SimpleFilter. 
 
 ### 3.4.0
 
