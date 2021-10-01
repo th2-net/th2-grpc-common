@@ -17,6 +17,7 @@
 syntax = 'proto3';
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 option java_multiple_files = true;
 option java_package = "com.exactpro.th2.common.grpc";
@@ -228,6 +229,11 @@ message RootMessageFilter {
   * Settings that will be used for comparing both filters (MessageFilter and MetadataFilter)
   */
   RootComparisonSettings comparison_settings = 4;
+
+  /*
+  * Description that may contain some information about the RootMessageFilter
+  */
+  google.protobuf.StringValue description = 5;
 }
 
 //--// Checkpoint //--//
