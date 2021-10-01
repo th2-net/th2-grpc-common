@@ -147,7 +147,7 @@ message RootComparisonSettings {
   */
   repeated string ignore_fields = 1;
   /*
-  * This field provides the ability to check repeating groups in messages
+  * Enables order verification in repeating groups according to defined filters.
   */
   bool check_repeating_group_order = 2;
 }
