@@ -178,6 +178,8 @@ enum FilterOperation {
   NOT_LESS = 11;
   WILDCARD = 12;
   NOT_WILDCARD = 13;
+  EQ_TIME_PRECISION = 14;
+  EQ_DECIMAL_PRECISION = 15;
 }
 
 message ValueFilter {
