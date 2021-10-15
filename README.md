@@ -1,4 +1,4 @@
-# th2 gRPC common library (3.7.0)
+# th2 gRPC common library (3.8.0)
 
 This library contains common proto messages that are used in all th2 components. See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto") file for details. <br>
 Tool generates code from `.proto` files and uploads built packages (`.proto` files and generated code) to specified repositories.
@@ -37,6 +37,9 @@ If you wish to manually create and publish a package for Python:
     `PYPI_REPOSITORY_URL`, `PYPI_USER` and `PYPI_PASSWORD` are parameters for publishing.
 
 ## Release notes
+
+### 3.8.0
++ Added `time_precision` and `decimal_precision` parameters to `RootComparisonSettings`
 
 ### 3.7.0
 + Added `check_repeating_group_order` parameter to `RootComparisonSettings`
