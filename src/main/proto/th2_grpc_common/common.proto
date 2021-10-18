@@ -17,6 +17,7 @@
 syntax = 'proto3';
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
 import "google/protobuf/wrappers.proto";
 
 option java_multiple_files = true;
@@ -150,6 +151,14 @@ message RootComparisonSettings {
   * Enables order verification in repeating groups according to defined filters.
   */
   bool check_repeating_group_order = 2;
+  /*
+  * Time precision format for comparing timestamps
+  */
+  google.protobuf.Duration time_precision = 3;
+  /*
+  * Decimal precision format for comparing numbers. E.g. 0.0001, 0.125, 125E-3 could be supported
+  */
+  string decimal_precision = 4;
 }
 
 //--// Message filter //--//
@@ -169,6 +178,8 @@ enum FilterOperation {
   NOT_LESS = 11;
   WILDCARD = 12;
   NOT_WILDCARD = 13;
+  EQ_TIME_PRECISION = 14;
+  EQ_DECIMAL_PRECISION = 15;
 }
 
 message ValueFilter {
