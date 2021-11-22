@@ -300,3 +300,16 @@ message EventBatch {
   EventID parent_event_id = 1;
   repeated Event events = 2; // Events optional related to between themselves. No events outside this batch should refer to the events in this batch.
 }
+
+message Notification {
+  string name = 1;
+  string description = 2;
+  NotificationKind kind = 3;
+}
+
+enum NotificationKind {
+  BOOK_ADDED = 0;
+  BOOK_REMOVED = 1;
+  PAGE_ADDED = 3;
+  PAGE_REMOVED = 4;
+}
