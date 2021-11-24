@@ -39,6 +39,7 @@ message MessageID {
   Direction direction = 2; // Transport direction.
   int64 sequence = 3; // Unique sequence number in session
   repeated uint32 subsequence = 4; // List of nested sequences in addition to the main one
+  string book_name = 5;
 }
 
 message MessageMetadata {
@@ -282,6 +283,8 @@ enum EventStatus {
 
 message EventID {
   string id = 1; // Unique event id in TH2 deploy
+  string book_name = 2;
+  string scope = 3;
 }
 
 message Event {
