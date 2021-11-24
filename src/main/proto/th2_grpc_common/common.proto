@@ -284,6 +284,7 @@ enum EventStatus {
 message EventID {
   string id = 1; // Unique event id in TH2 deploy
   string book_name = 2;
+  string scope = 3;
 }
 
 message Event {
