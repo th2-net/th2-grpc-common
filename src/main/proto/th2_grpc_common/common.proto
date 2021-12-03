@@ -190,6 +190,7 @@ message ValueFilter {
     MessageFilter message_filter = 4;
     ListValueFilter list_filter = 5;
     SimpleList simple_list = 6;
+    NullValue null_value = 7;
   }
 }
 
