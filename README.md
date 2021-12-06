@@ -42,6 +42,10 @@ If you wish to manually create and publish a package for Python:
 + Added `book_name` to `MessageID` and `EventID`
 + Added `scope` to `EventID`
 
+### 3.9.0
+
++ Added `null_value` in `ValueFilter`. Should be used only with EQUAL and NOT_EQUAL operations.
+
 ### 3.8.0
 + Added `time_precision` and `decimal_precision` parameters to `RootComparisonSettings`
 + Added `EQ_TIME_PRECISION` and `EQ_DECIMAL_PRECISION` filter operation, witch filter a field by comparing values(`date/time` in ISO format and `numeric` types) with the precision. The timestamps will be compared with the protobuf duration format. Numbers use string format, for example _0.0001_, _0.125_, _125E-3_
