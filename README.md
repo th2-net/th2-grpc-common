@@ -41,6 +41,7 @@ If you wish to manually create and publish a package for Python:
 ### 3.10.0
 + Added `book_name` to `MessageID` and `EventID`
 + Added `scope` to `EventID`
++ Added `map<string, SessionAliasToDirectionCheckpoint>` to `Checkpoint`. It describes book to session alias to direction.
 
 ### 3.9.0
 

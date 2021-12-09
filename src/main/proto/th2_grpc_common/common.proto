@@ -257,11 +257,11 @@ message RootMessageFilter {
 
 message Checkpoint {
   string id = 1;
-  map<string, DirectionCheckpoint> session_alias_to_direction_checkpoint = 2;
+  map<string, DirectionCheckpoint> session_alias_to_direction_checkpoint = 2 [deprecated = true];
+  map<string, SessionAliasToDirectionCheckpoint> book_name_to_session_alias_to_direction_checkpoint = 3;
 
-  message CheckpointData {
-    int64 sequence = 1; // Message sequence number in session
-    google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
+  message SessionAliasToDirectionCheckpoint {
+    map<string, DirectionCheckpoint> session_alias_to_direction_checkpoint = 1;
   }
 
   message DirectionCheckpoint {
@@ -273,6 +273,11 @@ message Checkpoint {
     */
     map<int32, int64> direction_to_sequence = 1 [deprecated = true];
     map<int32, CheckpointData> direction_to_checkpoint_data = 2;
+  }
+
+  message CheckpointData {
+    int64 sequence = 1; // Message sequence number in session
+    google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
   }
 }
 
