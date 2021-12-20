@@ -39,6 +39,8 @@ If you wish to manually create and publish a package for Python:
 ## Release notes
 
 ### 3.10.0
++ Moved `timestamp` from `MessageMetadata`/`RawMessageMetadata` to `MessageID`
++ Moved `start_timestamp` from `Event` to `EventID`
 + Added `book_name` to `MessageID` and `EventID`
 + Added `scope` to `EventID`
 + Added `map<string, SessionAliasToDirectionCheckpoint>` to `Checkpoint`. It describes book to session alias to direction.
