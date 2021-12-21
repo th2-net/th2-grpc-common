@@ -290,9 +290,9 @@ enum EventStatus {
 
 message EventID {
   string id = 1; // Unique event id in TH2 deploy
-  google.protobuf.Timestamp start_timestamp = 2;
-  string book_name = 3;
-  string scope = 4;
+  string book_name = 2;
+  string scope = 3;
+  google.protobuf.Timestamp start_timestamp = 4;
 }
 
 message Event {
