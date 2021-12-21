@@ -39,8 +39,8 @@ message MessageID {
   Direction direction = 2; // Transport direction.
   int64 sequence = 3; // Unique sequence number in session
   repeated uint32 subsequence = 4; // List of nested sequences in addition to the main one
-  google.protobuf.Timestamp timestamp = 5; // Message creation timestamp
-  string book_name = 6;
+  string book_name = 5;
+  google.protobuf.Timestamp timestamp = 6; // Message creation timestamp
 }
 
 message MessageMetadata {
