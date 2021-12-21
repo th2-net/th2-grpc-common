@@ -40,11 +40,12 @@ message MessageID {
   int64 sequence = 3; // Unique sequence number in session
   repeated uint32 subsequence = 4; // List of nested sequences in addition to the main one
   string book_name = 5;
+  google.protobuf.Timestamp timestamp = 6; // Message creation timestamp
 }
 
 message MessageMetadata {
   MessageID id = 1; // Message id should be unique in session
-  google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
+  reserved 2; // Message creation timestamp
   string message_type = 3; // Message type by dictionary
   map<string, string> properties = 4; // Additional properties for the message
   string protocol = 5; // Protocol to be used when encoding the message
@@ -52,7 +53,7 @@ message MessageMetadata {
 
 message RawMessageMetadata {
   MessageID id = 1; // Message id should be unique in session
-  google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
+  reserved 2; // Message creation timestamp
   map<string, string> properties = 3; // Additional properties for the raw message
   string protocol = 4; // Protocol to be used when decoding the message
 }
@@ -138,7 +139,7 @@ message ComparisonSettings {
   * Values are not considered during the comparison. Please use RootComparisonSettings#ignore_fields instead.
   * This field will be removed in future releases.
   */
-  repeated string ignore_fields = 1 [deprecated = true];
+  reserved 1;
   FailUnexpected fail_unexpected = 2;
 }
 
@@ -205,10 +206,10 @@ message SimpleList {
 
 message MessageFilter {
   // Is not used for filtering sub-messages. Will be removed in the future
-  string messageType = 1 [deprecated = true];
+  reserved 1;
 
   // Is not used for filtering sub-messages. Will be removed in the future
-  string direction = 2 [deprecated = true];
+  reserved 2;
   map<string, ValueFilter> fields = 3;
   ComparisonSettings comparison_settings = 4;
 }
@@ -257,7 +258,7 @@ message RootMessageFilter {
 
 message Checkpoint {
   string id = 1;
-  map<string, DirectionCheckpoint> session_alias_to_direction_checkpoint = 2 [deprecated = true];
+  reserved 2;
   map<string, SessionAliasToDirectionCheckpoint> book_name_to_session_alias_to_direction_checkpoint = 3;
 
   message SessionAliasToDirectionCheckpoint {
@@ -271,7 +272,7 @@ message Checkpoint {
     * If direction_to_sequence is filled, it will be converted to direction_to_checkpoint_data.
     * This field will be removed in future major releases. Please use direction_to_checkpoint_data instead.
     */
-    map<int32, int64> direction_to_sequence = 1 [deprecated = true];
+    reserved 1;
     map<int32, CheckpointData> direction_to_checkpoint_data = 2;
   }
 
@@ -291,12 +292,13 @@ message EventID {
   string id = 1; // Unique event id in TH2 deploy
   string book_name = 2;
   string scope = 3;
+  google.protobuf.Timestamp start_timestamp = 4;
 }
 
 message Event {
   EventID id = 1;
   EventID parent_id = 2; // Event id of parent event. It is null for root event
-  google.protobuf.Timestamp start_timestamp = 3;
+  reserved 3;
   google.protobuf.Timestamp end_timestamp = 4;
   EventStatus status = 5; // Aggregated status of current and children events which sync written.
   string name = 6;
