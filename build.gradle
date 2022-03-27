@@ -49,7 +49,7 @@ dependencies {
 
     implementation "javax.annotation:javax.annotation-api:1.3.2"
 
-    implementation "com.exactpro.th2:grpc-service-generator:3.1.12-TH2-3340-1985441760-SNAPSHOT"
+    implementation "com.exactpro.th2:grpc-service-generator:3.2.0-TH2-3340-2041436997-SNAPSHOT"
 }
 
 sourceSets {
