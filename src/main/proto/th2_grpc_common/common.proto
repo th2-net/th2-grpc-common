@@ -27,7 +27,7 @@ option java_package = "com.exactpro.th2.common.grpc";
 
 message ConnectionID {
   string session_alias = 1; // Session identifier depends on protocol, target / sender
-  string group_id = 2; // Session group
+  string session_group = 2; // Session group
 }
 
 enum Direction {
