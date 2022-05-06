@@ -38,6 +38,10 @@ If you wish to manually create and publish a package for Python:
 
 ## Release notes
 
+### 3.11.0
+
++ Added `session_group` parameter to `ConnectionID`
+
 ### 3.10.0
 
 + Updated grpc-service-generator (added support for gRPC pins filters).
