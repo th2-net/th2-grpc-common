@@ -46,6 +46,14 @@ If you wish to manually create and publish a package for Python:
 + Added `scope` to `EventID`
 + Added `map<string, SessionAliasToDirectionCheckpoint>` to `Checkpoint`. It describes book to session alias to direction.
 
+### 3.11.0
+
++ Added `session_group` parameter to `ConnectionID`
+
+### 3.10.0
+
++ Updated grpc-service-generator (added support for gRPC pins filters).
+
 ### 3.9.0
 
 + Added `null_value` in `ValueFilter`. Should be used only with EQUAL and NOT_EQUAL operations.
