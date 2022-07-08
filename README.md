@@ -46,6 +46,10 @@ If you wish to manually create and publish a package for Python:
 + Added `scope` to `EventID`
 + Added `map<string, SessionAliasToDirectionCheckpoint>` to `Checkpoint`. It describes book to session alias to direction.
 
+### 3.11.1
+
++ Update `mypy-protobuf` Python dependency version from `2.5` to `3.2` 
+
 ### 3.11.0
 
 + Added `session_group` parameter to `ConnectionID`
