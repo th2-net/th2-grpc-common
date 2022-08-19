@@ -160,6 +160,10 @@ message RootComparisonSettings {
   * Decimal precision format for comparing numbers. E.g. 0.0001, 0.125, 125E-3 could be supported
   */
   string decimal_precision = 4;
+  /*
+  * Enables ordering verification for collections with simple types.
+  */
+  google.protobuf.BoolValue check_simple_collections_order = 5;
 }
 
 //--// Message filter //--//
