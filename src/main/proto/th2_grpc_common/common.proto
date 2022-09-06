@@ -118,6 +118,10 @@ message RawMessageBatch {
   repeated RawMessage messages = 1;
 }
 
+message ByteMessageBatch {
+  repeated ByteMessage messages = 1;
+}
+
 message MessageGroupBatch {
   repeated MessageGroup groups = 1;
 }
