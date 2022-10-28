@@ -1,4 +1,4 @@
-# th2 gRPC common library (3.11.1)
+# th2 gRPC common library (3.11.2)
 
 This library contains common proto messages that are used in all th2 components. See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto") file for details. <br>
 Tool generates code from `.proto` files and uploads built packages (`.proto` files and generated code) to specified repositories.
@@ -37,6 +37,11 @@ If you wish to manually create and publish a package for Python:
     `PYPI_REPOSITORY_URL`, `PYPI_USER` and `PYPI_PASSWORD` are parameters for publishing.
 
 ## Release notes
+
+### 3.11.2
+
++ Update `grpcio-tools` Python dependency version from `1.38.1` to `1.50.0` 
++ Update `grpc` Java dependency version from `1.32.1` to `1.50.2`
 
 ### 3.11.1
 
