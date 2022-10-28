@@ -38,7 +38,7 @@ If you wish to manually create and publish a package for Python:
 
 ## Release notes
 
-### 3.11.2
+### 3.12.0
 
 + Update `grpcio-tools` Python dependency version from `1.38.1` to `1.50.0` 
 + Update `grpc` Java dependency version from `1.32.1` to `1.50.2`
