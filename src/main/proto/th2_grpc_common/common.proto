@@ -42,6 +42,14 @@ message MessageID {
   repeated uint32 subsequence = 4; // List of nested sequences in addition to the main one
 }
 
+message EventBatchMetadata {
+  string external_user_queue = 1; // External user queue can be used for routing by internal box logic.
+}
+
+message MessageGroupBatchMetadata {
+  string external_user_queue = 1; // External user queue can be used for routing by internal box logic.
+}
+
 message MessageMetadata {
   MessageID id = 1; // Message id should be unique in session
   google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
@@ -112,6 +120,7 @@ message RawMessageBatch {
 }
 
 message MessageGroupBatch {
+  MessageGroupBatchMetadata metadata = 2;
   repeated MessageGroup groups = 1;
 }
 
@@ -299,6 +308,7 @@ message Event {
 }
 
 message EventBatch {
+  EventBatchMetadata metadata = 3;
   EventID parent_event_id = 1;
   repeated Event events = 2; // Events optional related to between themselves. No events outside this batch should refer to the events in this batch.
 }
