@@ -1,4 +1,4 @@
-# th2 gRPC common library (4.0.0+)
+# th2 gRPC common library (4.1.0)
 
 This library contains common proto messages that are used in all th2 components. See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto") file for details. <br>
 Tool generates code from `.proto` files and uploads built packages (`.proto` files and generated code) to specified repositories.
@@ -96,6 +96,17 @@ This is the same as often found on Dos/Unix command lines.
 + "abc-123", "*-????"    --&gt; false
 
 N.B. the sequence `*?` does not work properly at present in match strings.
+
+### 4.1.0
+
++ Added event / message batch metadata with the external_user_queue field. This field can be used to send MQ message to direct queue instead of schema routing in some cases.
+
+### 4.0.0
+
++ Extended event / message ids to support book & page. 
+  + The timestamp and book fields have been included into both of ids
+  + The group field has been added to message id
+  + The scope field has benn added to event id
 
 ### 3.3.0
 
