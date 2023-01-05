@@ -38,6 +38,10 @@ If you wish to manually create and publish a package for Python:
 
 ## Release notes
 
+### 4.1.0
+
++ Added event / message batch metadata with the external_user_queue field. This field can be used to send MQ message to direct queue instead of schema routing in some cases.
+
 ### 4.0.0
 + Marked deprecated fields as `reserved`
 + Moved `timestamp` from `MessageMetadata`/`RawMessageMetadata` to `MessageID`
@@ -96,17 +100,6 @@ This is the same as often found on Dos/Unix command lines.
 + "abc-123", "*-????"    --&gt; false
 
 N.B. the sequence `*?` does not work properly at present in match strings.
-
-### 4.1.0
-
-+ Added event / message batch metadata with the external_user_queue field. This field can be used to send MQ message to direct queue instead of schema routing in some cases.
-
-### 4.0.0
-
-+ Extended event / message ids to support book & page. 
-  + The timestamp and book fields have been included into both of ids
-  + The group field has been added to message id
-  + The scope field has benn added to event id
 
 ### 3.3.0
 
