@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 Exactpro (Exactpro Systems Limited)
+ * Copyright 2020-2022 Exactpro (Exactpro Systems Limited)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,14 @@ message MessageID {
   repeated uint32 subsequence = 4; // List of nested sequences in addition to the main one
   string book_name = 5;
   google.protobuf.Timestamp timestamp = 6; // Message creation timestamp
+}
+
+message EventBatchMetadata {
+  string external_queue = 1; // External user queue can be used for routing by internal box logic.
+}
+
+message MessageGroupBatchMetadata {
+  string external_queue = 1; // External user queue can be used for routing by internal box logic.
 }
 
 message MessageMetadata {
@@ -114,6 +122,7 @@ message RawMessageBatch {
 }
 
 message MessageGroupBatch {
+  MessageGroupBatchMetadata metadata = 2;
   repeated MessageGroup groups = 1;
 }
 
@@ -309,6 +318,7 @@ message Event {
 }
 
 message EventBatch {
+  EventBatchMetadata metadata = 3;
   EventID parent_event_id = 1;
   repeated Event events = 2; // Events optional related to between themselves. No events outside this batch should refer to the events in this batch.
 }

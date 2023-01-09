@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
     id "io.github.gradle-nexus.publish-plugin" version "1.0.0"
     id 'signing'
-    id "com.google.protobuf" version "0.8.15"
+    id "com.google.protobuf" version "0.9.1"
 }
 
 group = 'com.exactpro.th2'
@@ -14,7 +14,7 @@ sourceCompatibility = 11
 targetCompatibility = 11
 
 ext {
-    grpcVersion         = '1.32.1'
+    grpcVersion         = '1.50.2'
     protobufVersion     = '3.13.0'
 
     genDir              = file("${project.rootDir}/src/gen")
@@ -83,7 +83,6 @@ protobuf {
 
 compileJava.dependsOn.add('generateProto')
 
-
 java {
     withJavadocJar()
     withSourcesJar()
@@ -107,6 +106,16 @@ tasks.withType(Sign) {
         project.hasProperty('signingPassword')
     }
 }
+
+// FIXME: related issue https://github.com/gradle/gradle/issues/17236
+// Also, the problem can be related to source set imports
+tasks.withType(Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+tasks.withType(Copy) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 // disable running task 'initializeSonatypeStagingRepository' on a gitlab
 tasks.whenTaskAdded {task ->
     if(task.name.equals('initializeSonatypeStagingRepository') &&

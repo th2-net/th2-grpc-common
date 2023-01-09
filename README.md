@@ -1,4 +1,4 @@
-# th2 gRPC common library (4.0.0)
+# th2 gRPC common library (4.1.0)
 
 This library contains common proto messages that are used in all th2 components. See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto") file for details. <br>
 Tool generates code from `.proto` files and uploads built packages (`.proto` files and generated code) to specified repositories.
@@ -38,6 +38,10 @@ If you wish to manually create and publish a package for Python:
 
 ## Release notes
 
+### 4.1.0
+
++ Added event / message batch metadata with the external_user_queue field. This field can be used to send MQ message to direct queue instead of schema routing in some cases.
+
 ### 4.0.0
 + Marked deprecated fields as `reserved`
 + Moved `timestamp` from `MessageMetadata`/`RawMessageMetadata` to `MessageID`
@@ -45,6 +49,12 @@ If you wish to manually create and publish a package for Python:
 + Added `book_name` to `MessageID` and `EventID`
 + Added `scope` to `EventID`
 + Added `map<string, SessionAliasToDirectionCheckpoint>` to `Checkpoint`. It describes book to session alias to direction.
++ Added `EventBatchMetadata` and `MessageGroupBatchMetadata` with `external_queue` property
+
+### 3.12.0
+
++ Update `grpcio-tools` Python dependency version from `1.38.1` to `1.50.0` 
++ Update `grpc` Java dependency version from `1.32.1` to `1.50.2`
 
 ### 3.11.1
 
