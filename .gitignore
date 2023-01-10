@@ -14,5 +14,5 @@ dist
 *egg-info
 
 # golang
-th2-grpc-common/
+th2-grpc/
 go.work
