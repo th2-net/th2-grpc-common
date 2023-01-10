@@ -1,6 +1,6 @@
 TARGET_DIR?=$(shell pwd)
 PROTO_DIR=src/main/proto
-MODULE_NAME=th2-grpc-common
+MODULE_NAME=th2-grpc
 MODULE_DIR=$(TARGET_DIR)/$(MODULE_NAME)
 
 configure-go:
