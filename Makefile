@@ -9,3 +9,4 @@ generate-module: clean-module
 	mkdir $(MODULE_DIR)
 	protoc --proto_path=src/main/proto --go_out=$(MODULE_DIR) --go_opt=paths=source_relative $(shell find src/main/proto/ -name '*.proto')
 	cd $(MODULE_DIR) && go mod init $(MODULE_NAME)
+	cd $(TARGET_DIR) ; go work init ; go work use ./$(MODULE_NAME)
