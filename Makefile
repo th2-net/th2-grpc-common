@@ -12,8 +12,6 @@ clean-module:
 generate-module: clean-module configure-go
 	mkdir $(MODULE_DIR)
 
-	cp -r $(PROTO_DIR)/* $(MODULE_DIR)/
-	
 	protoc --proto_path=$(PROTO_DIR) --go_out=$(MODULE_DIR) --go_opt=paths=source_relative $(shell find $(PROTO_DIR) -name '*.proto')
 	cd $(MODULE_DIR) && go mod init $(MODULE_NAME)
 	cd $(TARGET_DIR) ; go work init ; go work use ./$(MODULE_NAME)
