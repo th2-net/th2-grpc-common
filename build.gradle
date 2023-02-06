@@ -194,8 +194,6 @@ clean {
     delete sharedDir
 }
 
-configurations {
-    compileClasspath {
-        resolutionStrategy.activateDependencyLocking()
-    }
+dependencyLocking {
+    lockAllConfigurations()
 }
