@@ -52,6 +52,9 @@ If you wish to manually create and publish a package for Python:
 + Added `map<string, SessionAliasToDirectionCheckpoint>` to `Checkpoint`. It describes book to session alias to direction.
 + Added `EventBatchMetadata` and `MessageGroupBatchMetadata` with `external_queue` property
 
+### 3.13.0
++ Update `th2-bom` version from '3.0.0' to '4.1.0'
+
 ### 3.12.0
 
 + Update `grpcio-tools` Python dependency version from `1.38.1` to `1.50.0` 
