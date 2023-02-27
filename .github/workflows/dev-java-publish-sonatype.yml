@@ -3,10 +3,9 @@ name: Dev build and publish Java distributions to sonatype snapshot repository
 on:
   push:
     branches-ignore:
-    - master
-    - version-*
-    # paths:
-    # - gradle.properties
+      - master
+      - dev-version-*
+      - version-*
     paths-ignore:
       - README.md
 
@@ -22,5 +21,3 @@ jobs:
       sonatypePassword: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
       sonatypeSigningKey: ${{ secrets.SONATYPE_GPG_ARMORED_KEY }}
       sonatypeSigningPassword: ${{ secrets.SONATYPE_SIGNING_PASSWORD }}
-
-
