@@ -1,13 +1,12 @@
 name: Build and release Java distributions to sonatype.
 
 on:
-  workflow_dispatch:
   push:
     branches:
-    - master
-    - version-*
+      - master
+      - version-*
     paths:
-    - gradle.properties
+      - gradle.properties
 
 jobs:
   build:
@@ -21,4 +20,3 @@ jobs:
       sonatypePassword: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
       sonatypeSigningKey: ${{ secrets.SONATYPE_GPG_ARMORED_KEY }}
       sonatypeSigningPassword: ${{ secrets.SONATYPE_SIGNING_PASSWORD }}
-
