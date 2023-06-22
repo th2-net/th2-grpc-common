@@ -12,3 +12,7 @@ __pycache__/
 
 dist
 *egg-info
+
+# golang
+th2-grpc/
+go.work
