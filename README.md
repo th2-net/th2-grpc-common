@@ -52,7 +52,7 @@ If you wish to manually create and publish a package for Python:
 + Added golang specific properties
 + Updated bom:4.4.0
 + Updated grpc-service-generator:3.4.0
-+ Updated grpcio-tools:1.54.2
++ Updated grpcio-tools:1.56.0
 + Updated mypy-protobuf:3.4
 
 ### 4.2.0
