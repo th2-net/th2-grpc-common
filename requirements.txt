@@ -12,6 +12,6 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-
+# NOTE: Specify dependency versions here and in the setup.py file
 grpcio-tools==1.56.0
 mypy-protobuf==3.4
