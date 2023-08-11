@@ -11,7 +11,7 @@ on:
 jobs:
   build-n-publish:
     name: Build and Python distributions to PyPI
-    uses: th2-net/.github/.github/workflows/compaund-python-grpc-pypi-publication.yml@pyhton-fix
+    uses: th2-net/.github/.github/workflows/compaund-python-grpc-pypi-publication.yml@main
     secrets:
       pypi_password: ${{ secrets.PYPI_PASSWORD }}
   scan:

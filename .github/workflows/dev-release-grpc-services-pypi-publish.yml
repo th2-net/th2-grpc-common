@@ -12,7 +12,7 @@ jobs:
   build-n-publish:
     name: Dev build and Python distributions to PyPI
     needs: [collect-version]
-    uses: th2-net/.github/.github/workflows/compaund-python-grpc-pypi-publication.yml@pyhton-fix
+    uses: th2-net/.github/.github/workflows/compaund-python-grpc-pypi-publication.yml@main
     with:
       custom-version: ${{ needs.collect-version.outputs.versionNumber }}.dev
     secrets:
