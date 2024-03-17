@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-job:
-    uses: th2-net/.github/.github/workflows/compound-java-dev.yml@nvd-key-support
+    uses: th2-net/.github/.github/workflows/compound-java-dev.yml@main
     with:
       build-target: 'Sonatype'
       runsOn: ubuntu-latest
