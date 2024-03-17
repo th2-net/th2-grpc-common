@@ -1,8 +1,8 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'com.exactpro.th2.gradle.grpc' version '0.0.2'
-    id 'com.exactpro.th2.gradle.publish' version '0.0.2'
+    id 'com.exactpro.th2.gradle.grpc' version '0.0.3'
+    id 'com.exactpro.th2.gradle.publish' version '0.0.3'
 }
 
 group = 'com.exactpro.th2'
