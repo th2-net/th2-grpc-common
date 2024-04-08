@@ -1,4 +1,4 @@
-# th2 gRPC common library (4.4.0)
+# th2 gRPC common library (4.5.0)
 
 This library contains common proto messages that are used in all th2 components.
 See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto")
@@ -46,6 +46,13 @@ If you wish to manually create and publish a package for Python:
    `PYPI_REPOSITORY_URL`, `PYPI_USER` and `PYPI_PASSWORD` are parameters for publishing.
 
 ## Release notes
+
+### 4.5.0
+
++ Updated:
+  + bom 4.4.0 -> 4.6.1
+  + grpc 1.56.0 -> 1.62.2
+  + grpc-service-generator removed
 
 ### 4.4.0
 
