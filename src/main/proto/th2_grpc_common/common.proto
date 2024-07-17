@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 Exactpro (Exactpro Systems Limited)
+ * Copyright 2020-2023 Exactpro (Exactpro Systems Limited)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ import "google/protobuf/wrappers.proto";
 
 option java_multiple_files = true;
 option java_package = "com.exactpro.th2.common.grpc";
+
+option go_package = "th2-grpc/th2_grpc_common";
 
 //--// Metadata structures //--//
 
@@ -171,6 +173,10 @@ message RootComparisonSettings {
   * Decimal precision format for comparing numbers. E.g. 0.0001, 0.125, 125E-3 could be supported
   */
   string decimal_precision = 4;
+  /*
+  * Enables ordering verification for collections with simple types.
+  */
+  google.protobuf.BoolValue check_simple_collections_order = 5;
 }
 
 //--// Message filter //--//
