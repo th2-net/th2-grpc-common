@@ -1,4 +1,4 @@
-#   Copyright 2020-2023 Exactpro (Exactpro Systems Limited)
+#   Copyright 2020-2024 Exactpro (Exactpro Systems Limited)
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,5 +13,5 @@
 #   limitations under the License.
 
 # NOTE: Specify dependency versions here and in the setup.py file
-grpcio-tools==1.56.0
+grpcio-tools==1.59.0
 mypy-protobuf==3.4
