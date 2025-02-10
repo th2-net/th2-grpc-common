@@ -14,5 +14,3 @@ generate-module: clean-module configure-go
 	    --go_out=$(MODULE_DIR) \
 	    --go_opt=paths=source_relative \
 	    $(shell find $(PROTO_DIR) -name '*.proto')
-	go mod init $(MODULE_NAME)
-	go mod tidy -v
