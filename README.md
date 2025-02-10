@@ -47,6 +47,10 @@ If you wish to manually create and publish a package for Python:
 
 ## Release notes
 
+### 4.7.0
++ Changed:
+  + option go_package: `github.com/th2-net/th2-grpc-common-go`
+
 ### 4.6.0
 + Updated:
   + th2 gradle plugin 0.1.1 -> 0.1.3
