@@ -23,7 +23,7 @@ import "google/protobuf/wrappers.proto";
 option java_multiple_files = true;
 option java_package = "com.exactpro.th2.common.grpc";
 
-option go_package = "github.com/th2-net/th2-grpc-common-go/pkg/grpc/th2_grpc_common";
+option go_package = "github.com/th2-net/th2-grpc-common-go";
 
 //--// Metadata structures //--//
 
