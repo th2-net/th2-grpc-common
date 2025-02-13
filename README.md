@@ -1,4 +1,4 @@
-# th2 gRPC common library (4.6.0)
+# th2 gRPC common library (4.7.0)
 
 This library contains common proto messages that are used in all th2 components.
 See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto")
@@ -50,6 +50,8 @@ If you wish to manually create and publish a package for Python:
 ### 4.7.0
 + Changed:
   + option go_package: `github.com/th2-net/th2-grpc-common-go`
++ Updated:
+  + th2 gradle plugin 0.1.3 -> 0.1.8 (bom: 4.10.0)
 
 ### 4.6.0
 + Updated:
