@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2023 Exactpro (Exactpro Systems Limited)
+ * Copyright 2020-2025 Exactpro (Exactpro Systems Limited)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import "google/protobuf/wrappers.proto";
 option java_multiple_files = true;
 option java_package = "com.exactpro.th2.common.grpc";
 
-option go_package = "th2-grpc/th2_grpc_common";
+option go_package = "github.com/th2-net/th2-grpc-common-go";
 
 //--// Metadata structures //--//
 
@@ -42,11 +42,21 @@ message MessageID {
   Direction direction = 2; // Transport direction.
   int64 sequence = 3; // Unique sequence number in session
   repeated uint32 subsequence = 4; // List of nested sequences in addition to the main one
+  string book_name = 5;
+  google.protobuf.Timestamp timestamp = 6; // Message creation timestamp
+}
+
+message EventBatchMetadata {
+  string external_queue = 1; // External user queue can be used for routing by internal box logic.
+}
+
+message MessageGroupBatchMetadata {
+  string external_queue = 1; // External user queue can be used for routing by internal box logic.
 }
 
 message MessageMetadata {
   MessageID id = 1; // Message id should be unique in session
-  google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
+  reserved 2; // Message creation timestamp
   string message_type = 3; // Message type by dictionary
   map<string, string> properties = 4; // Additional properties for the message
   string protocol = 5; // Protocol to be used when encoding the message
@@ -54,7 +64,7 @@ message MessageMetadata {
 
 message RawMessageMetadata {
   MessageID id = 1; // Message id should be unique in session
-  google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
+  reserved 2; // Message creation timestamp
   map<string, string> properties = 3; // Additional properties for the raw message
   string protocol = 4; // Protocol to be used when decoding the message
 }
@@ -114,6 +124,7 @@ message RawMessageBatch {
 }
 
 message MessageGroupBatch {
+  MessageGroupBatchMetadata metadata = 2;
   repeated MessageGroup groups = 1;
 }
 
@@ -140,7 +151,7 @@ message ComparisonSettings {
   * Values are not considered during the comparison. Please use RootComparisonSettings#ignore_fields instead.
   * This field will be removed in future releases.
   */
-  repeated string ignore_fields = 1 [deprecated = true];
+  reserved 1;
   FailUnexpected fail_unexpected = 2;
 }
 
@@ -162,6 +173,10 @@ message RootComparisonSettings {
   * Decimal precision format for comparing numbers. E.g. 0.0001, 0.125, 125E-3 could be supported
   */
   string decimal_precision = 4;
+  /*
+  * Enables ordering verification for collections with simple types.
+  */
+  google.protobuf.BoolValue check_simple_collections_order = 5;
 }
 
 //--// Message filter //--//
@@ -207,10 +222,10 @@ message SimpleList {
 
 message MessageFilter {
   // Is not used for filtering sub-messages. Will be removed in the future
-  string messageType = 1 [deprecated = true];
+  reserved 1;
 
   // Is not used for filtering sub-messages. Will be removed in the future
-  string direction = 2 [deprecated = true];
+  reserved 2;
   map<string, ValueFilter> fields = 3;
   ComparisonSettings comparison_settings = 4;
 }
@@ -259,11 +274,11 @@ message RootMessageFilter {
 
 message Checkpoint {
   string id = 1;
-  map<string, DirectionCheckpoint> session_alias_to_direction_checkpoint = 2;
+  reserved 2;
+  map<string, SessionAliasToDirectionCheckpoint> book_name_to_session_alias_to_direction_checkpoint = 3;
 
-  message CheckpointData {
-    int64 sequence = 1; // Message sequence number in session
-    google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
+  message SessionAliasToDirectionCheckpoint {
+    map<string, DirectionCheckpoint> session_alias_to_direction_checkpoint = 1;
   }
 
   message DirectionCheckpoint {
@@ -273,8 +288,13 @@ message Checkpoint {
     * If direction_to_sequence is filled, it will be converted to direction_to_checkpoint_data.
     * This field will be removed in future major releases. Please use direction_to_checkpoint_data instead.
     */
-    map<int32, int64> direction_to_sequence = 1 [deprecated = true];
+    reserved 1;
     map<int32, CheckpointData> direction_to_checkpoint_data = 2;
+  }
+
+  message CheckpointData {
+    int64 sequence = 1; // Message sequence number in session
+    google.protobuf.Timestamp timestamp = 2; // Message creation timestamp
   }
 }
 
@@ -286,12 +306,15 @@ enum EventStatus {
 
 message EventID {
   string id = 1; // Unique event id in TH2 deploy
+  string book_name = 2;
+  string scope = 3;
+  google.protobuf.Timestamp start_timestamp = 4;
 }
 
 message Event {
   EventID id = 1;
   EventID parent_id = 2; // Event id of parent event. It is null for root event
-  google.protobuf.Timestamp start_timestamp = 3;
+  reserved 3;
   google.protobuf.Timestamp end_timestamp = 4;
   EventStatus status = 5; // Aggregated status of current and children events which sync written.
   string name = 6;
@@ -301,6 +324,7 @@ message Event {
 }
 
 message EventBatch {
+  EventBatchMetadata metadata = 3;
   EventID parent_event_id = 1;
   repeated Event events = 2; // Events optional related to between themselves. No events outside this batch should refer to the events in this batch.
 }
