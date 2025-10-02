@@ -1,4 +1,4 @@
-# th2 gRPC common library (4.7.1)
+# th2 gRPC common library (4.7.2)
 
 This library contains common proto messages that are used in all th2 components.
 See [common.proto](https://github.com/th2-net/th2-grpc-common/blob/master/src/main/proto/th2_grpc_common/common.proto "common.proto")
@@ -46,6 +46,12 @@ If you wish to manually create and publish a package for Python:
    `PYPI_REPOSITORY_URL`, `PYPI_USER` and `PYPI_PASSWORD` are parameters for publishing.
 
 ## Release notes
+
+### 4.7.2
+* Migrated to range python dependencies 
+* Updated:
+  * th2 gradle plugin 0.3.4 -> 0.3.8
+  * grpcio-tools 1.74.0 -> 1.75.1
 
 ### 4.7.1
 * Updated:
