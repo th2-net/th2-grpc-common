@@ -50,7 +50,7 @@ If you wish to manually create and publish a package for Python:
 ### 4.7.3
 
 * Updated:
-  * th2 gradle plugin 0.3.8 -> 0.3.11
+  * th2 gradle plugin 0.3.8 -> 0.3.13
 
 ### 4.7.2
 * Migrated to range python dependencies 
